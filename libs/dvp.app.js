@@ -1,9 +1,5 @@
 var dvp = {};
 dvp.prepareMainView = function () {
-    document.addEventListener('deviceready', deviceReadyListener, false);
-
-    function deviceReadyListener(e) {
-        e.preventDefault();
         var title='titulo';
         var message='mensaje';
         
