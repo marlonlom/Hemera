@@ -15,8 +15,8 @@
                 document.addEventListener('deviceready', deviceReadyListener, false);
             }
 
-            function deviceReadyListener() {
-                alert('aha');
+            function deviceReadyListener(e) {
+                e.preventDefault();
                 alert('aha');
                 dvp.prepareMainView();
             }
