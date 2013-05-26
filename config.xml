@@ -17,7 +17,7 @@
     <preference name="android-minSdkVersion" value="8" />
     <preference name="android-installLocation" value="preferExternal" />
     <!--Icon Support (Default)-->
-    <icon src="icon.png" />
+    <icon src="icon/default.png" />
     <!--Icon Support (blackberry)-->
     <icon src="icon/blackberry/icon.png" gap:platform="blackberry" />
     <!--Icon Support (ios)-->
