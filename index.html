@@ -14,10 +14,11 @@
         <script type="text/javascript" src="/libs/zepto.min.js"></script>
         <script type="text/javascript" src="/libs/dvp.app.js"></script>
         <script>
+            document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
             function deviceReadyListener() {
                 dvp.prepareMainView();
             }
-            document.addEventListener('deviceready', deviceReadyListener, false);
+            document.addEventListener('load', deviceReadyListener, false);
         </script>
     </head>
     
