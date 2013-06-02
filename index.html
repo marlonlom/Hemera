@@ -7,9 +7,10 @@
         <title>DIVIPOLA-mobile-1.0</title>
         <meta name="description" content="DIVIPOLA mobile">
         <meta name="viewport" content="width=device-width">
+        <link href=css/styles.css rel=stylesheet>
         <!--scripts-->
-        <script type="text/javascript" src="/libs/dvp.app.js"></script>
         <script type="text/javascript" src="cordova-2.7.0.js"></script>
+        <script type="text/javascript" src="/libs/dvp.app.js"></script>
         <script>
             function onLoad() {
                 document.addEventListener('load', deviceReadyListener, false);
@@ -22,6 +23,13 @@
         </script>
     </head>
     
-    <body onload="onLoad()">hola mundo</body>
+    <body onload="onLoad()">
+        <header id="header">
+            <a href="http://cubiq.org/iscroll">iScroll</a>
+        </header>
+        <div id="wrapper">
+        </div>
+        <footer id="footer"></footer>
+    </body>
 
 </html>
