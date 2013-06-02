@@ -12,20 +12,22 @@
         <script type="text/javascript" src="cordova-2.7.0.js"></script>
         <script type="text/javascript" src="/libs/dvp.app.js"></script>
         <script>
-            function onLoad() {
-                document.addEventListener('load', deviceReadyListener, false);
-            }
-
             function deviceReadyListener(e) {
                 e.preventDefault();
                 dvp.prepareMainView();
             }
+            function onLoad() {
+                document.addEventListener('deviceready', deviceReadyListener, false);
+            }
+
         </script>
     </head>
     
     <body onload="onLoad()">
         <header id="header">
+            <img src="img/dane.header.01.png" height="48" style="float:left;margin-left:50px;">
             <a href="http://cubiq.org/iscroll">iScroll</a>
+            <img src="img/dane.header.02.png" height="48" style="float:right;margin-right:50px;">
         </header>
         <div id="wrapper">
         </div>
