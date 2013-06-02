@@ -16,20 +16,21 @@
                 e.preventDefault();
                 dvp.prepareMainView();
             }
+
             function onLoad() {
                 document.addEventListener('deviceready', deviceReadyListener, false);
             }
-
         </script>
     </head>
     
     <body onload="onLoad()">
         <header id="header">
-            <img src="img/dane.header.01.png" height="48" width="200" class="danelogo1">
+            <img src="img/dane.header.01.png" class="danelogo1">
             <h5 class="title">DIVIPOLA</h5>
-            <img src="img/dane.header.02.png" height="48" width="90" class="danelogo2">
+            <img src="img/dane.header.02.png" class="danelogo2">
         </header>
         <div id="wrapper">
+            <div id="scroller"></div>
         </div>
         <footer id="footer"></footer>
     </body>

@@ -30,6 +30,9 @@ body {
 img.danelogo1 {
     float:left;
     margin-left:1px;
+    max-width: 75%;
+    max-height: 60%;
+    margin-top: 5px;
 }
 h5.title {
     float:left;
@@ -40,6 +43,9 @@ h5.title {
 img.danelogo2 {
     float:right;
     margin-right:1px;
+    max-width: 75%;
+    max-height: 65%;
+    margin-top: 5px;
 }
 #wrapper {
     position:absolute;
