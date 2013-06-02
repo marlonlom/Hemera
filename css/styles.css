@@ -41,6 +41,16 @@ img.danelogo2 {
     float:right;
     margin-right:1px;
 }
+#wrapper {
+    position:absolute;
+    z-index:1;
+    top:45px;
+    bottom:48px;
+    left:0;
+    width:100%;
+    background:#fff;
+    overflow:auto;
+}
 #footer {
     position:absolute;
     z-index:2;
@@ -54,14 +64,4 @@ img.danelogo2 {
     background-image:-o-linear-gradient(top, #999, #666 2%, #222);
     padding:0;
     border-top:1px solid #444;
-}
-#wrapper {
-    position:absolute;
-    z-index:1;
-    top:45px;
-    bottom:48px;
-    left:0;
-    width:100%;
-    background:#fff;
-    overflow:auto;
 }
