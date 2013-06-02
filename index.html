@@ -15,16 +15,13 @@
             function deviceReadyListener() {
                 dvp.prepareMainView();
             }
-
-            function onLoad() {
-                document.addEventListener('deviceready', function() {
-                    deviceReadyListener();
-                }, false);
-            }
+            document.addEventListener('deviceready', function() {
+                deviceReadyListener();
+            }, true);
         </script>
     </head>
     
-    <body onload="onLoad()">
+    <body>
         <header id="header">
             <img src="img/dane.header.01.png" class="danelogo1">
             <h5 class="title">DIVIPOLA</h5>
