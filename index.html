@@ -17,7 +17,9 @@
             }
 
             function onLoad() {
-                document.addEventListener('deviceready', deviceReadyListener, false);
+                document.addEventListener('deviceready', function() {
+                    deviceReadyListener();
+                }, false);
             }
         </script>
     </head>
