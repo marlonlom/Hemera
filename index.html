@@ -7,18 +7,17 @@
         <title>DIVIPOLA-mobile-1.0</title>
         <meta name="description" content="DIVIPOLA mobile">
         <meta name="viewport" content="width=device-width">
+        <!--styles-->
         <link href=css/styles.css rel=stylesheet>
         <!--scripts-->
-        <script type="text/javascript" src="cordova-2.7.0.js"></script>
+        <script type="text/javascript" src="phonegap.js"></script>
         <script type="text/javascript" src="/libs/zepto.min.js"></script>
         <script type="text/javascript" src="/libs/dvp.app.js"></script>
         <script>
             function deviceReadyListener() {
                 dvp.prepareMainView();
             }
-            document.addEventListener('deviceready', function() {
-                deviceReadyListener();
-            }, true);
+            document.addEventListener('deviceready', deviceReadyListener, false);
         </script>
     </head>
     

@@ -1,5 +1,10 @@
 var dvp = {};
 dvp.prepareMainView = function () {
-    var mainMenuOptions = ['Departamentos', '&Aacute;reas Metropolitanas', 'Distritos', 'Datos de interes', 'Cont&aacute;ctenos'];
+    var searchOptions = ['Departamentos', '&Aacute;reas Metropolitanas', 'Distritos','Buscar lugar'];
+    var infoOptions = ['Datos de interes', 'Cont&aacute;ctenos'];
+    
+    $('#scroller').html('aha');
+    
+    
     navigator.notification.alert("PhoneGap is working!!");
 };
