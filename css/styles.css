@@ -89,6 +89,9 @@ li.item-li a {
 a.itm-nom {
     float:left;
 }
+li.mpios-li a.itm-nom, li.cpobs-li a.itm-nom {
+    width: 65%;
+}
 li.deptos-li a.itm-nom {
     width: 75%;
 }
@@ -98,10 +101,34 @@ li.dstrts-li a.itm-nom, li.amtrps-li a.itm-nom {
 li.dstrts-li a.itm-cod, li.amtrps-li a.itm-cod {
     display:none;
 }
-li.deptos-li a.itm-cod {
+li.deptos-li a.itm-cod, li.mpios-li a.itm-cod, li.cpobs-li a.itm-cod {
     float:right;
     margin-right:10px;
     margin-left:5px;
+}
+div.mpio-li-title, div.cpob-li-title {
+    float:left;
+    width: 85%;
+    font-size: 12px;
+}
+div.cpob-li-title {
+    font-size: 11px;
+}
+li.cpobs-li-tip{
+    line-height: 14px;
+    margin-bottom: 10px;
+    padding: 2px;
+    min-height: 50px;
+}
+li.mpios-li a, li.cpobs-li a {
+    color:#000000;
+    text-decoration:none;
+}
+li.mpios-odd-li, li.cpobs-odd-li {
+    background:#cccccc;
+}
+li.mpios-even-li, li.cpobs-even-li {
+    background:#ffffff;
 }
 #footer {
     position:absolute;

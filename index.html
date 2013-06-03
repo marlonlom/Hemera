@@ -71,9 +71,9 @@
                         </li>
                         {{#each list}}
                         <li class="menu-li item-li">
-                            <a href="#" class="itm-nom">{{nom}}</a>
+                            <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
                             <img src="img/map.png" class="vmap-icon" />
-                            <a href="#" class="itm-cod">{{cod}}</a> 
+                            <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
                         </li>
                         {{/each}}
                     </ul>
@@ -81,6 +81,72 @@
             </div>
             <footer id="footer"></footer>
         </script>
+        <script id="hbt-level02" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">DIVIPOLA</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <ul class='deptos-list'>
+                        <li class="menu-li home-li-tip inner-li">
+                            <div class="mpio-li-title">
+                                <b>{{upperTip}}</b><br/>
+                                <span>{{level01_nom}}
+                                    {{#if level01_cod}}
+                                    &nbsp;({{level01_cod}})
+                                    {{/if}}
+                                </span>
+                            </div>
+                            <img src="img/icon-home.png" class="back-home-icon" />
+                        </li>
+                        {{#each list}}
+                        <li class="menu-li item-li">
+                            <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
+                            <img src="img/map.png" class="vmap-icon" />
+                            <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <footer id="footer"></footer>
+        </script>
+        <script id="hbt-level03" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">DIVIPOLA</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <ul class='deptos-list'>
+                        <li class="menu-li home-li-tip inner-li cpobs-li-tip">
+                            <div class="cpob-li-title">
+                                <b>{{upperTip}}</b><br/>
+                                <span>{{level01_nom}}
+                                    {{#if level01_cod}}
+                                    &nbsp;({{level01_cod}})
+                                    {{/if}}
+                                </span><br/>
+                                <span>{{level02_nom}}&nbsp;({{level02_cod}})</span>
+                            </div>
+                            <img src="img/icon-home.png" class="back-home-icon" />
+                        </li>
+                        {{#each list}}
+                        <li class="menu-li item-li">
+                            <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
+                            <img src="img/map.png" class="vmap-icon" />
+                            <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <footer id="footer"></footer>
+        </script>
+        
     </body>
 
 </html>
