@@ -69,24 +69,36 @@ li.menu-li {
     background:#B92859;
     margin-bottom:2px;
     color:#ffffff;
-    height:30px;
-    line-height:30px;
+    min-height: 30px;
+    clear: both;
 }
 li.inner-li {
     line-height:14px;
+    margin-bottom: 10px;
 }
 span.tip_bog {
     font-size:11px !important;
 }
-img.back-home-icon,
-img.vmap-icon {
+img.back-home-icon, img.vmap-icon {
     float:right;
 }
-li.deptos-li a{
+li.item-li a {
     color:#ffffff;
     text-decoration:none;
 }
-li.deptos-li a.itm-cod{
+a.itm-nom {
+    float:left;
+}
+li.deptos-li a.itm-nom {
+    width: 75%;
+}
+li.dstrts-li a.itm-nom, li.amtrps-li a.itm-nom {
+    width: 85%;
+}
+li.dstrts-li a.itm-cod, li.amtrps-li a.itm-cod {
+    display:none;
+}
+li.deptos-li a.itm-cod {
     float:right;
     margin-right:10px;
     margin-left:5px;

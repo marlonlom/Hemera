@@ -16,7 +16,7 @@ dvp.prepareMainView = function () {
             hash: 'amtrps'
         }, {
             label: 'Distritos',
-            hash: 'dstrt'
+            hash: 'dstrts'
         }, {
             label: 'Datos de interes',
             hash: 'about'
@@ -30,7 +30,7 @@ dvp.prepareMainView = function () {
         upperTip: "Seleccione por código",
         menu: searchMenu
     }));
-    
+
     $('body').on('click', 'li.home-menu-item', function (e) {
         e.preventDefault();
         var hash = $(this).attr('data-home-link') || 'nah';
@@ -42,7 +42,7 @@ dvp.changeView = function (hash, parent) {
         dvp.prepareDeptosMainView();
     } else if (hash === 'amtrps') {
         dvp.prepareAreasMetropsMainView();
-    } else if (hash === 'dstrt') {
+    } else if (hash === 'dstrts') {
         dvp.prepareDistrtsMainView();
     }
     if (dvp.iscroll !== null) {
@@ -50,7 +50,7 @@ dvp.changeView = function (hash, parent) {
         dvp.iscroll = null;
     }
     dvp.iscroll = new iScroll("wrapper");
-    $('body').on('click','img.back-home-icon',function(e){
+    $('body').on('click', 'img.back-home-icon', function (e) {
         e.preventDefault();
         dvp.prepareMainView();
     });
@@ -61,18 +61,19 @@ dvp.prepareDeptosMainView = function () {
         tip_bog: "Nota: No se debe tener en cuenta a Bogotá D.C. como departamento.",
         list: data.departamentos
     }));
+    $('li.item-li').addClass('deptos-li');
 }
 dvp.prepareAreasMetropsMainView = function () {
     $('body').html(this.templates.level01({
         upperTip: "Códigos por área metropolitana",
-        list: data.areasmetrop,
-        hideCod: true
+        list: data.areasmetrop
     }));
+    $('li.item-li').addClass('amtrps-li');
 }
 dvp.prepareDistrtsMainView = function () {
     $('body').html(this.templates.level01({
         upperTip: "Códigos por distritos",
-        list: data.distritos,
-        hideCod: true
+        list: data.distritos
     }));
+    $('li.item-li').addClass('dstrts-li');
 }

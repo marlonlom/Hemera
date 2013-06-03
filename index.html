@@ -33,7 +33,7 @@
         </script>
     </head>
     
-    <body onload="onBodyLoad()">
+    <body>
         <script id="hbt-home" type="text/x-handlebars-template">
             <header id="header">
                 <img src="img/dane.header.01.png" class="danelogo1">
@@ -70,12 +70,10 @@
                             {{/if}}
                         </li>
                         {{#each list}}
-                        <li class="menu-li deptos-li">
+                        <li class="menu-li item-li">
                             <a href="#" class="itm-nom">{{nom}}</a>
                             <img src="img/map.png" class="vmap-icon" />
-                            {{#if hideCod}}
-                            <a href="#" class="itm-cod">{{cod}}</a>
-                            {{/if}}
+                            <a href="#" class="itm-cod">{{cod}}</a> 
                         </li>
                         {{/each}}
                     </ul>
