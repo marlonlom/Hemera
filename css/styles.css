@@ -57,24 +57,39 @@ img.danelogo2 {
     background:#fff;
     overflow:auto;
 }
-
-li.home-li-tip{
+li.home-li-tip {
     padding-top:10px !important;
     padding-bottom:5px !important;
     background:#ffffff !important;
     margin-bottom:2px;
     color:#000000 !important;
 }
-
-li.home-li{
-    padding:5px;    
+li.menu-li {
+    padding:5px;
     background:#B92859;
     margin-bottom:2px;
     color:#ffffff;
     height:30px;
     line-height:30px;
 }
-
+li.inner-li {
+    line-height:14px;
+}
+span.tip_bog {
+    font-size:11px !important;
+}
+img.vmap-icon {
+    float:right;
+}
+li.deptos-li a{
+    color:#ffffff;
+    text-decoration:none;
+}
+li.deptos-li a.itm-cod{
+    float:right;
+    margin-right:10px;
+    margin-left:5px;
+}
 #footer {
     position:absolute;
     z-index:2;
