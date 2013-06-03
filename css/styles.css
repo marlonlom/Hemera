@@ -79,7 +79,7 @@ li.inner-li {
 span.tip_bog {
     font-size:11px !important;
 }
-img.back-home-icon, img.vmap-icon {
+img.vmap-icon {
     float:right;
 }
 li.item-li a {
@@ -130,8 +130,13 @@ li.mpios-odd-li, li.cpobs-odd-li {
 li.mpios-even-li, li.cpobs-even-li {
     background:#ffffff;
 }
-p.contact-header {
+p.contact-header, p.contact-button-bar {
     clear:both;
+}
+p.contact-header {
+    height: 30px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 p.contact-header h4 {
     float:left;
@@ -141,6 +146,20 @@ p.contact-info {
     padding-left: 5px;
     padding-right: 5px;
     font-size: 11px;
+}
+p.contact-button-bar {
+    padding-top: 10px;
+    margin:0;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 10px;
+}
+p.contact-button-bar img {
+    float:left;
+    margin:5px;
+    -webkit-border-radius: 5px;
+    -moz-border-radius: 5px;
+    border-radius: 5px;
 }
 #footer {
     position:absolute;
@@ -152,4 +171,21 @@ p.contact-info {
     background-color:#A91D4A;
     padding:0;
     border-top:1px solid #444;
+}
+#footer div.footer-container {
+    margin: 0;
+    padding-left: 5px;
+    padding-right: 5px;
+    font-size: 11px;
+    clear:both;
+}
+#footer div.footer-container .footer-btn {
+    text-align: center;
+    width: 32px;
+    padding-right: 5px;
+    color: #fff;
+    line-height: 10px;
+}
+#footer div.footer-container .footer-btn img {
+    margin:2px; 
 }
