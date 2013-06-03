@@ -1,10 +1,29 @@
-var dvp = {};
+var dvp = {
+    templates: {}
+};
+dvp.initialize = function () {
+    this.templates.home = Handlebars.compile($("#hbt-home").html());
+}
 dvp.prepareMainView = function () {
-    var searchOptions = ['Departamentos', '&Aacute;reas Metropolitanas', 'Distritos','Buscar lugar'];
-    var infoOptions = ['Datos de interes', 'Cont&aacute;ctenos'];
-    
-    $('#scroller').html('aha');
-    
-    
-    navigator.notification.alert("PhoneGap is working!!");
+
+    var searchMenu: [
+        {
+            label: 'Departamentos',
+            hash: 'deptos'
+        },{
+            label: '&Aacute;reas Metropolitanas',
+            hash: 'amtrps'
+        },{
+            label: 'Distritos',
+            hash: 'dstrt'
+        },{
+            label: 'Datos de interes',
+            hash: 'about'
+        },{
+            label: 'Cont&aacute;ctenos',
+            hash: 'contact'
+        }
+    ];
+
+    $('#scroller').html(this.templates.home({menu:searchMenu}));
 };

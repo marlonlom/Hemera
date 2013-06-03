@@ -13,6 +13,7 @@
         <!--scripts-->
         <script type="text/javascript" src="cordova-2.7.0.js"></script>
         <script type="text/javascript" src="/libs/zepto.min.js"></script>
+        <script type="text/javascript" src="/libs/handlebars.min.js"></script>
         <script type="text/javascript" src="/libs/dvp.app.js"></script>
         <script>
             if (!$) {
@@ -32,21 +33,30 @@
                
             }
             $(function($) {
+                dvp.initialize();
                 dvp.prepareMainView();
             })
         </script>
     </head>
     
     <body onload="onBodyLoad()">
-        <header id="header">
-            <img src="img/dane.header.01.png" class="danelogo1">
-            <h5 class="title">DIVIPOLA</h5>
-            <img src="img/dane.header.02.png" class="danelogo2">
-        </header>
-        <div id="wrapper">
-            <div id="scroller"></div>
-        </div>
-        <footer id="footer"></footer>
+        <script id="hbt-home" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">DIVIPOLA</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <ul class='home-list'>
+                        {{#each menu}}
+                        <li class="home-li" data-home-link="{{hash}}"><a href="#">{{label}}</a></li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <footer id="footer"></footer>
+        </script>
     </body>
 
 </html>
