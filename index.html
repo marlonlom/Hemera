@@ -21,14 +21,10 @@
             if (!$) {
                 $ = Zepto;
             };
-        
-            document.addEventListener("deviceready", function(e) {
-                window.setTimeout(function() {
-                    navigator.splashscreen.hide();
-                }, 5000);
-            }, "false");
-        
             $(function($) {
+                window.setTimeout(function() { 
+                    navigator.splashscreen.hide(); 
+                }, 5000);
                 dvp.initialize();
                 dvp.prepareMainView();
                 document.addEventListener('touchmove', function(e) {

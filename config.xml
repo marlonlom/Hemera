@@ -13,10 +13,10 @@
     <preference name="fullscreen" value="true" />
     <!-- Some preferences (iOS)-->
     <preference name="exit-on-suspend" value="true" />
+    <preference name="auto-hide-splash-screen" value="false" />
     <!-- Some preferences (Android)-->
     <preference name="android-minSdkVersion" value="8" />
     <preference name="android-installLocation" value="preferExternal" />
-    <preference name="auto-hide-splash-screen" value="false" />
     <!--Icon Support (Default)-->
     <icon src="icon/default.png" />
     <!--Icon Support (blackberry)-->
