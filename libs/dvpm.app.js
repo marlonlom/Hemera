@@ -1,5 +1,6 @@
 var dvp = {
     templates: {},
+    isOnline: false,
     iscroll: null
 };
 dvp.initialize = function () {
@@ -8,6 +9,8 @@ dvp.initialize = function () {
     this.templates.level02 = Handlebars.compile($("#hbt-level02").html());
     this.templates.level03 = Handlebars.compile($("#hbt-level03").html());
     this.templates.contact = Handlebars.compile($("#hbt-contact").html());
+    this.templates.aboutlist = Handlebars.compile($("#hbt-about-list").html());
+    this.templates.whois = Handlebars.compile($("#hbt-about-whois").html());
 };
 dvp.showAlert = function (message, title) {
     if (navigator.notification) {
@@ -23,7 +26,7 @@ dvp.prepareMainView = function () {
             hash: 'deptos'
         }, {
             label: 'Áreas Metropolitanas',
-            hash: 'amtrps'
+            hash: 'armtrps'
         }, {
             label: 'Distritos',
             hash: 'dstrts'
@@ -48,14 +51,17 @@ dvp.prepareMainView = function () {
     });
 };
 dvp.changeView = function (hash, context) {
+    $('body').off('click');
     if (hash === 'deptos') {
         dvp.prepareRootGeographiesMainView('depto');
-    } else if (hash === 'amtrps') {
-        dvp.prepareRootGeographiesMainView('amtrp');
+    } else if (hash === 'armtrps') {
+        dvp.prepareRootGeographiesMainView('armtrp');
     } else if (hash === 'dstrts') {
         dvp.prepareRootGeographiesMainView('dstrt');
     } else if (hash === 'mpios' || hash === 'cpobs') {
         dvp.prepareInnerGeographiesMainView(hash, context);
+    } else if (hash === 'about') {
+        dvp.prepareAboutListingView();
     } else if (hash === 'contact') {
         dvp.prepareContactInfoView();
     }
@@ -66,13 +72,15 @@ dvp.changeView = function (hash, context) {
     }
     dvp.iscroll = new iScroll("wrapper");
 
-    $('body').off('click', 'img.back-home-icon').on('click', 'img.back-home-icon', function (e) {
+    $('body').on('click', 'img.back-home-icon', function (e) {
         e.preventDefault();
         dvp.prepareMainView();
-    });
-    $('body').off('click', 'img.vmap-icon').on('click', 'img.vmap-icon', function (e) {
+    }).on('click', 'img.vmap-icon', function (e) {
         e.preventDefault();
         dvp.showAlert('voy pal mapa', 'mapa');
+    }).on('click', 'img.save-xls-icon', function (e) {
+        e.preventDefault();
+        dvp.prepareInformationForXlsSaving();
     });
 };
 dvp.prepareRootGeographiesMainView = function (rootScope) {
@@ -83,7 +91,7 @@ dvp.prepareRootGeographiesMainView = function (rootScope) {
             tip_bog: "Nota: No se debe tener en cuenta a Bogotá D.C. como departamento.",
             list: data.departamentos
         };
-    } else if (rootScope === 'amtrp') {
+    } else if (rootScope === 'armtrp') {
         context = {
             upperTip: "Códigos por área metropolitana",
             list: data.areasmetrop
@@ -96,7 +104,7 @@ dvp.prepareRootGeographiesMainView = function (rootScope) {
     }
     $('body').html(this.templates.level01(context));
     $('li.item-li').addClass(rootScope + 's-li');
-    $('body').off('click').on('click', 'li.' + rootScope + 's-li a.itm-nom', function (e) {
+    $('body').on('click', 'li.' + rootScope + 's-li a.itm-nom', function (e) {
         e.preventDefault();
         var code = $(this).attr('data-itm-cod') || 'nah';
         dvp.changeView('mpios', {
@@ -146,10 +154,10 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
             if (hash === 'mpios') {
                 $('body').html(this.templates.level02(inputcxt));
                 $('li.item-li').addClass('mpios-li').each(function (index) {
-                    var odd = index % 2 == 0;
+                    var odd = index % 2 === 0;
                     $(this).addClass(odd ? 'mpios-odd-li' : 'mpios-even-li');
                 });
-                $('body').off('click').on('click', 'li.mpios-li a.itm-nom', function (e) {
+                $('body').on('click', 'li.mpios-li a.itm-nom', function (e) {
                     e.preventDefault();
                     var code = $(this).attr('data-itm-cod') || 'nah';
                     context.mpio = code;
@@ -166,13 +174,46 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
                     $('body').html(this.templates.level03(inputcxt));
                 }
                 $('li.item-li').addClass('cpobs-li').each(function (index) {
-                    var odd = index % 2 == 0;
+                    var odd = index % 2 === 0;
                     $(this).addClass(odd ? 'cpobs-odd-li' : 'cpobs-even-li');
                 });
-                $('body').off('click');
             }
         }
     }
+};
+dvp.prepareAboutListingView = function () {
+    var context = {
+        upperTip: "Datos de interes",
+        aboutHeader: "Sobre DIVIPOLA",
+        dvpWhois: "¿Qué es la DIVIPOLA?",
+        dvpHistory: "Reseña histórica",
+        dvpCronolg: "Histórico DIVIPOLA",
+        dvpGlossary: "Glosario"
+    };
+    $('body').html(this.templates.aboutlist(context));
+    $('body').on('click', 'li.about-menu-item a', function (e) {
+        e.preventDefault();
+        var code = $(this).attr('data-about-link') || 'nah';
+        if(code==='leafs'){
+            $('li.about-menu-item-leaf').toggle();
+        }else if(code==='dvpWhois'){
+            dvp.prepareAboutWhoisView();
+        }else if(code==='dvpHistory'){
+            
+        }else if(code==='dvpCronolg'){
+            
+        }else if(code==='dvpGlossary'){
+
+        }
+    });
+};
+dvp.prepareAboutWhoisView = function () {
+    var context = {
+        upperTip: "¿Que es la DIVIPOLA?",
+        firstParagraph: "La División Político-administrativa de Colombia DIVIPOLA es un estándar de codificación que permite contar con un listado organizado y actualizado de la totalidad de unidades en que está dividido el territorio nacional, dándole a cada departamento,  municipio, territorio especial biodiverso y fronterizo y  centro poblado, el máximo de estabilidad en su identificación.",
+        secondParagraph: "Esta codificación, acorde con la dinámica territorial del país, es actualizada periódicamente por el Departamento Administrativo Nacional de Estadística (DANE), de acuerdo con la información suministrada por las administraciones municipales y departamentales, constituyéndose en fuente de consulta sobre la organización administrativa y política del país."
+    };
+    $('body').html(this.templates.whois(context));
 };
 dvp.prepareContactInfoView = function () {
     var context = {
@@ -184,5 +225,16 @@ dvp.prepareContactInfoView = function () {
         email: "contacto@dane.gov.co"
     };
     $('body').html(this.templates.contact(context));
-    $('body').off('click');
+};
+dvp.prepareInformationForXlsSaving = function () {
+    var codes = [];
+    $('li.item-li a.itm-nom').each(function (index) {
+        var cod = $(this).attr('data-itm-cod') || 'nah';
+        if (cod !== 'nah') {
+            codes.push(cod);
+        }
+    });
+    if(codes.length>0){
+        console.log('xls inputs',{items:codes,conn:dvp.isOnline()});
+    }
 };

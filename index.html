@@ -26,7 +26,21 @@
                     setTimeout(function(){
                         window.navigator.splashscreen.hide();
                     },1000);
-                } 
+                }
+                document.addEventListener("offline", onOffline, false);
+                document.addEventListener("online", onOnline, false);
+                document.addEventListener("backbutton", onBackKeyDown, false);
+            }
+            function onBackKeyDown() {
+                dvp.prepareMainView();
+            }
+            function onOffline() { 
+                dvp.isOnline=false; 
+                dvp.showAlert('no hay conexión de internet','estado de conexión'); 
+            } 
+            function onOnline() { 
+                dvp.isOnline=true; 
+                dvp.showAlert('está conectado a internet','estado de conexión'); 
             }
             if (!$) {
                 $ = Zepto;
@@ -213,6 +227,68 @@
                         <a href="mailto:{{email}}">
                             <img src="img/icon-contact-email.png" />
                         </a>
+                    </p>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container">
+                    <div class="footer-btn">
+                        <img src="img/icon-home.png" class="back-home-icon">
+                        Inicio
+                    </div>
+                </div>
+            </footer>
+        </script>
+        <script id="hbt-about-list" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">DIVIPOLA</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <ul class='home-list'>
+                        <li class="menu-li home-li-tip"><b>{{upperTip}}</b></li>
+                        <li class="menu-li about-menu-item">
+                            <a href="#" data-about-link="leafs">{{aboutHeader}}</a>
+                        </li>
+                        <li class="menu-li about-menu-item about-menu-item-leaf">
+                            <a href="#" data-about-link="dvpWhois">{{dvpWhois}}</a>
+                        </li>
+                        <li class="menu-li about-menu-item about-menu-item-leaf">
+                            <a href="#" data-about-link="dvpHistory">{{dvpHistory}}</a>
+                        </li>
+                        <li class="menu-li about-menu-item" >
+                            <a href="#" data-about-link="dvpCronolg">{{dvpCronolg}}</a>
+                        </li>
+                        <li class="menu-li about-menu-item" >
+                            <a href="#" data-about-link="glossary">{{dvpGlossary}}</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container">
+                    <div class="footer-btn">
+                        <img src="img/icon-home.png" class="back-home-icon">
+                        Inicio
+                    </div>
+                </div>
+            </footer>
+        </script>
+        <script id="hbt-about-whois" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">DIVIPOLA</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <h4 class="whois-header">{{upperTip}}</h4>
+                    <p class="whois-content">
+                        {{firstParagraph}}
+                        <br/><br/>
+                        {{secondParagraph}}
                     </p>
                 </div>
             </div>

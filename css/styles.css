@@ -95,10 +95,10 @@ li.mpios-li a.itm-nom, li.cpobs-li a.itm-nom {
 li.deptos-li a.itm-nom {
     width: 75%;
 }
-li.dstrts-li a.itm-nom, li.amtrps-li a.itm-nom {
+li.dstrts-li a.itm-nom, li.armtrps-li a.itm-nom {
     width: 85%;
 }
-li.dstrts-li a.itm-cod, li.amtrps-li a.itm-cod {
+li.dstrts-li a.itm-cod, li.armtrps-li a.itm-cod {
     display:none;
 }
 li.deptos-li a.itm-cod, li.mpios-li a.itm-cod, li.cpobs-li a.itm-cod {
@@ -161,6 +161,18 @@ p.contact-button-bar img {
     -moz-border-radius: 5px;
     border-radius: 5px;
 }
+li.about-menu-item-leaf {
+    display:none;
+    background:#cccccc;
+}
+li.about-menu-item a {
+    color:#ffffff;
+    text-decoration:none;
+}
+li.about-menu-item-leaf a {
+    color:#000000;
+    text-decoration:none;
+}
 #footer {
     position:absolute;
     z-index:2;
@@ -188,5 +200,5 @@ p.contact-button-bar img {
     float:left;
 }
 #footer div.footer-container .footer-btn img {
-    margin:2px; 
+    margin:2px;
 }
