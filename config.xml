@@ -32,6 +32,8 @@
     <!--Icon Support (WinPhone)-->
     <icon src="icon/winphone/icon.png" gap:platform="winphone" />
     <icon src="icon/winphone/tileicon.png" gap:platform="winphone" gap:role="background" />
+    <!--Splash Screen (WinPhone)-->
+    <gap:splash src="splash/winphone/splash.jpg" gap:platform="winphone" />
     <!-- Access (Default)-->
     <access origin="*" />
 </widget>

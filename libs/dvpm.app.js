@@ -9,6 +9,13 @@ dvp.initialize = function () {
     this.templates.level03 = Handlebars.compile($("#hbt-level03").html());
     this.templates.contact = Handlebars.compile($("#hbt-contact").html());
 }
+dvp.showAlert: function (message, title) {
+    if (navigator.notification) {
+        navigator.notification.alert(message, null, title, 'OK');
+    } else {
+        alert(title ? (title + ": " + message) : message);
+    }
+}
 dvp.prepareMainView = function () {
     var searchMenu = [
         {
@@ -64,7 +71,7 @@ dvp.changeView = function (hash, context) {
     });
     $('body').off('click', 'img.vmap-icon').on('click', 'img.vmap-icon', function (e) {
         e.preventDefault();
-        alert('voy pal mapa');
+        dvp.showAlert('voy pal mapa');
     });
 }
 dvp.prepareDeptosMainView = function () {
