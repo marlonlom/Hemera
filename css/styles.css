@@ -181,10 +181,11 @@ p.contact-button-bar img {
 }
 #footer div.footer-container .footer-btn {
     text-align: center;
-    width: 32px;
+    width: 44px;
     padding-right: 5px;
     color: #fff;
     line-height: 10px;
+    float:left;
 }
 #footer div.footer-container .footer-btn img {
     margin:2px; 
