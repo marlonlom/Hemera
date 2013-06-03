@@ -1,5 +1,6 @@
 var dvp = {
-    templates: {}
+    templates: {},
+    iscroll: null
 };
 dvp.initialize = function () {
     this.templates.home = Handlebars.compile($("#hbt-home").html());
@@ -29,7 +30,7 @@ dvp.prepareMainView = function () {
         upperTip: "Seleccione por código",
         menu: searchMenu
     }));
-
+    
     $('body').on('click', 'li.home-menu-item', function (e) {
         e.preventDefault();
         var hash = $(this).attr('data-home-link') || 'nah';
@@ -44,6 +45,15 @@ dvp.changeView = function (hash, parent) {
     } else if (hash === 'dstrt') {
         dvp.prepareDistrtsMainView();
     }
+    if (dvp.iscroll !== null) {
+        dvp.iscroll.destroy();
+        dvp.iscroll = null;
+    }
+    dvp.iscroll = new iScroll("wrapper");
+    $('body').on('click','img.back-home-icon',function(e){
+        e.preventDefault();
+        dvp.prepareMainView();
+    });
 }
 dvp.prepareDeptosMainView = function () {
     $('body').html(this.templates.level01({
@@ -56,13 +66,13 @@ dvp.prepareAreasMetropsMainView = function () {
     $('body').html(this.templates.level01({
         upperTip: "Códigos por área metropolitana",
         list: data.areasmetrop,
-        ncod: true
+        hideCod: true
     }));
 }
 dvp.prepareDistrtsMainView = function () {
     $('body').html(this.templates.level01({
         upperTip: "Códigos por distritos",
         list: data.distritos,
-        ncod: true
+        hideCod: true
     }));
 }

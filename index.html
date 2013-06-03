@@ -13,6 +13,7 @@
         <!--scripts-->
         <script type="text/javascript" src="cordova-2.7.0.js"></script>
         <script type="text/javascript" src="libs/zepto.min.js"></script>
+        <script type="text/javascript" src="libs/iscroll-lite.min.js"></script>
         <script type="text/javascript" src="libs/handlebars.js"></script>
         <script type="text/javascript" src="data/dvpm.data.js"></script>
         <script type="text/javascript" src="libs/dvpm.app.js"></script>
@@ -21,21 +22,13 @@
                 $ = Zepto;
             };
 
-            function onBodyLoad() {
-                document.addEventListener('touchmove', function(e) {
-                    e.preventDefault();
-                }, false);
-                document.addEventListener('deviceready', function() {
-                    deviceReadyListener();
-                }, false);
-            }
-
-            function deviceReadyListener() {
-               
-            }
             $(function($) {
                 dvp.initialize();
                 dvp.prepareMainView();
+                document.addEventListener('touchmove', function(e) {
+                    e.preventDefault();
+                }, false);
+                dvp.iscroll = new iScroll('wrapper');
             })
         </script>
     </head>
@@ -70,6 +63,7 @@
                     <ul class='deptos-list'>
                         <li class="menu-li home-li-tip inner-li">
                             <b>{{upperTip}}</b>
+                            <img src="img/icon-home.png" class="back-home-icon" />
                             <br/>
                             {{#if tip_bog}}
                             <span class="tip_bog">{{tip_bog}}</span>
@@ -79,7 +73,9 @@
                         <li class="menu-li deptos-li">
                             <a href="#" class="itm-nom">{{nom}}</a>
                             <img src="img/map.png" class="vmap-icon" />
+                            {{#if hideCod}}
                             <a href="#" class="itm-cod">{{cod}}</a>
+                            {{/if}}
                         </li>
                         {{/each}}
                     </ul>
