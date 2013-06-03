@@ -16,6 +16,7 @@
     <!-- Some preferences (Android)-->
     <preference name="android-minSdkVersion" value="8" />
     <preference name="android-installLocation" value="preferExternal" />
+    <preference name="auto-hide-splash-screen" value="false" />
     <!--Icon Support (Default)-->
     <icon src="icon/default.png" />
     <!--Icon Support (blackberry)-->
