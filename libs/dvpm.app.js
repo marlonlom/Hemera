@@ -9,7 +9,7 @@ dvp.initialize = function () {
     this.templates.level03 = Handlebars.compile($("#hbt-level03").html());
     this.templates.contact = Handlebars.compile($("#hbt-contact").html());
 }
-dvp.showAlert: function (message, title) {
+dvp.showAlert= function (message, title) {
     if (navigator.notification) {
         navigator.notification.alert(message, null, title, 'OK');
     } else {

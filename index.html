@@ -10,21 +10,29 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <!--styles-->
         <link href=css/styles.css rel=stylesheet>
-        <!--scripts-->
-        <script src="phonegap.js"></script>
-        <script type="text/javascript" src="libs/zepto.min.js"></script>
-        <script type="text/javascript" src="libs/iscroll-lite.min.js"></script>
-        <script type="text/javascript" src="libs/handlebars.js"></script>
-        <script type="text/javascript" src="data/dvpm.data.js"></script>
-        <script type="text/javascript" src="libs/dvpm.app.js"></script>
+         <!--scripts-->
+        <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/zepto.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/iscroll-lite.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/handlebars.js"></script>
+        <script type="text/javascript" charset="utf-8" src="data/dvpm.data.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/dvpm.app.js"></script>
         <script>
+            function onBodyLoad() {
+                document.addEventListener("deviceready", onDeviceReady, false); 
+            }
+            function onDeviceReady() { 
+                if(window.navigator && window.navigator.splashscreen){ 
+                    setTimeout(function(){
+                    },1000); 
+                }else{
+                    dvp.showAlert('no hay splashscreen?');
+                } 
+            }
             if (!$) {
                 $ = Zepto;
             };
             $(function($) {
-                window.setTimeout(function() { 
-                    navigator.splashscreen.hide(); 
-                }, 5000);
                 dvp.initialize();
                 dvp.prepareMainView();
                 document.addEventListener('touchmove', function(e) {
@@ -35,7 +43,7 @@
         </script>
     </head>
     
-    <body>
+    <body onload="onBodyLoad()">
         <script id="hbt-home" type="text/x-handlebars-template">
             <header id="header">
                 <img src="img/dane.header.01.png" class="danelogo1">
@@ -218,7 +226,6 @@
                 </div>
             </footer>
         </script>
-        
     </body>
 
 </html>
