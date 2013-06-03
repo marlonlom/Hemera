@@ -12,9 +12,9 @@
         <link href=css/styles.css rel=stylesheet>
         <!--scripts-->
         <script type="text/javascript" src="cordova-2.7.0.js"></script>
-        <script type="text/javascript" src="/libs/zepto.min.js"></script>
-        <script type="text/javascript" src="/libs/handlebars.min.js"></script>
-        <script type="text/javascript" src="/libs/dvp.app.js"></script>
+        <script type="text/javascript" src="libs/zepto.min.js"></script>
+        <script type="text/javascript" src="libs/handlebars.js"></script>
+        <script type="text/javascript" src="libs/dvp.app.js"></script>
         <script>
             if (!$) {
                 $ = Zepto;
@@ -49,8 +49,9 @@
             <div id="wrapper">
                 <div id="scroller">
                     <ul class='home-list'>
+                        <li class="home-li home-li-tip">{{upperTip}}</li>
                         {{#each menu}}
-                        <li class="home-li" data-home-link="{{hash}}"><a href="#">{{label}}</a></li>
+                        <li class="home-li home-menu-item" data-home-link="{{hash}}">{{label}}</li>
                         {{/each}}
                     </ul>
                 </div>

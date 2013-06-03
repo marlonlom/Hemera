@@ -50,13 +50,31 @@ img.danelogo2 {
 #wrapper {
     position:absolute;
     z-index:1;
-    top:45px;
+    top:50px;
     bottom:48px;
     left:0;
     width:100%;
     background:#fff;
     overflow:auto;
 }
+
+li.home-li-tip{
+    padding-top:10px !important;
+    padding-bottom:5px !important;
+    background:#ffffff !important;
+    margin-bottom:2px;
+    color:#000000 !important;
+}
+
+li.home-li{
+    padding:5px;    
+    background:#B92859;
+    margin-bottom:2px;
+    color:#ffffff;
+    height:30px;
+    line-height:30px;
+}
+
 #footer {
     position:absolute;
     z-index:2;

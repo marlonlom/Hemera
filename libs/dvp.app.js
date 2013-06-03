@@ -5,13 +5,12 @@ dvp.initialize = function () {
     this.templates.home = Handlebars.compile($("#hbt-home").html());
 }
 dvp.prepareMainView = function () {
-
     var searchMenu = [
         {
             label: 'Departamentos',
             hash: 'deptos'
         }, {
-            label: '&Aacute;reas Metropolitanas',
+            label: 'Áreas Metropolitanas',
             hash: 'amtrps'
         }, {
             label: 'Distritos',
@@ -20,12 +19,19 @@ dvp.prepareMainView = function () {
             label: 'Datos de interes',
             hash: 'about'
         }, {
-            label: 'Cont&aacute;ctenos',
+            label: 'Contáctenos',
             hash: 'contact'
         }
     ];
 
-    $('#scroller').html(this.templates.home({
+    $('body').html(this.templates.home({
+        upperTip: "Seleccione por código",
         menu: searchMenu
     }));
+    
+    $('body').on('click','li.home-menu-item',function(e){
+        e.preventDefault();
+        var hash = $(this).attr('data-home-link') || 'nah';
+        alert('view ' + hash);
+    });
 };
