@@ -24,9 +24,8 @@
             function onDeviceReady() { 
                 if(window.navigator && window.navigator.splashscreen){ 
                     setTimeout(function(){
-                    },1000); 
-                }else{
-                    dvp.showAlert('no hay splashscreen?');
+                        window.navigator.splashscreen.hide();
+                    },1000);
                 } 
             }
             if (!$) {

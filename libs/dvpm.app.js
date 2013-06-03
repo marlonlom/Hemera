@@ -8,14 +8,14 @@ dvp.initialize = function () {
     this.templates.level02 = Handlebars.compile($("#hbt-level02").html());
     this.templates.level03 = Handlebars.compile($("#hbt-level03").html());
     this.templates.contact = Handlebars.compile($("#hbt-contact").html());
-}
-dvp.showAlert= function (message, title) {
+};
+dvp.showAlert = function (message, title) {
     if (navigator.notification) {
         navigator.notification.alert(message, null, title, 'OK');
     } else {
         alert(title ? (title + ": " + message) : message);
     }
-}
+};
 dvp.prepareMainView = function () {
     var searchMenu = [
         {
@@ -49,11 +49,11 @@ dvp.prepareMainView = function () {
 };
 dvp.changeView = function (hash, context) {
     if (hash === 'deptos') {
-        dvp.prepareDeptosMainView();
+        dvp.prepareRootGeographiesMainView('depto');
     } else if (hash === 'amtrps') {
-        dvp.prepareAreasMetropsMainView();
+        dvp.prepareRootGeographiesMainView('amtrp');
     } else if (hash === 'dstrts') {
-        dvp.prepareDistrtsMainView();
+        dvp.prepareRootGeographiesMainView('dstrt');
     } else if (hash === 'mpios' || hash === 'cpobs') {
         dvp.prepareInnerGeographiesMainView(hash, context);
     } else if (hash === 'contact') {
@@ -65,61 +65,46 @@ dvp.changeView = function (hash, context) {
         dvp.iscroll = null;
     }
     dvp.iscroll = new iScroll("wrapper");
+
     $('body').off('click', 'img.back-home-icon').on('click', 'img.back-home-icon', function (e) {
         e.preventDefault();
         dvp.prepareMainView();
     });
     $('body').off('click', 'img.vmap-icon').on('click', 'img.vmap-icon', function (e) {
         e.preventDefault();
-        dvp.showAlert('voy pal mapa');
+        dvp.showAlert('voy pal mapa', 'mapa');
     });
-}
-dvp.prepareDeptosMainView = function () {
-    $('body').html(this.templates.level01({
-        upperTip: "Códigos por departamento",
-        tip_bog: "Nota: No se debe tener en cuenta a Bogotá D.C. como departamento.",
-        list: data.departamentos
-    }));
-    $('li.item-li').addClass('deptos-li');
-    $('body').off('click').on('click', 'li.deptos-li a.itm-nom', function (e) {
+};
+dvp.prepareRootGeographiesMainView = function (rootScope) {
+    var context = {};
+    if (rootScope === 'depto') {
+        context = {
+            upperTip: "Códigos por departamento",
+            tip_bog: "Nota: No se debe tener en cuenta a Bogotá D.C. como departamento.",
+            list: data.departamentos
+        };
+    } else if (rootScope === 'amtrp') {
+        context = {
+            upperTip: "Códigos por área metropolitana",
+            list: data.areasmetrop
+        };
+    } else if (rootScope === 'dstrt') {
+        context = {
+            upperTip: "Códigos por distritos",
+            list: data.distritos
+        };
+    }
+    $('body').html(this.templates.level01(context));
+    $('li.item-li').addClass(rootScope + 's-li');
+    $('body').off('click').on('click', 'li.' + rootScope + 's-li a.itm-nom', function (e) {
         e.preventDefault();
         var code = $(this).attr('data-itm-cod') || 'nah';
         dvp.changeView('mpios', {
-            scope: 'depto',
+            scope: rootScope,
             code: code
         });
     });
-}
-dvp.prepareAreasMetropsMainView = function () {
-    $('body').html(this.templates.level01({
-        upperTip: "Códigos por área metropolitana",
-        list: data.areasmetrop
-    }));
-    $('li.item-li').addClass('amtrps-li');
-    $('body').off('click').on('click', 'li.amtrps-li a.itm-nom', function (e) {
-        e.preventDefault();
-        var code = $(this).attr('data-itm-cod') || 'nah';
-        dvp.changeView('mpios', {
-            scope: 'armtrp',
-            code: code
-        });
-    });
-}
-dvp.prepareDistrtsMainView = function () {
-    $('body').html(this.templates.level01({
-        upperTip: "Códigos por distritos",
-        list: data.distritos
-    }));
-    $('li.item-li').addClass('dstrts-li');
-    $('body').off('click').on('click', 'li.dstrts-li a.itm-nom', function (e) {
-        e.preventDefault();
-        var code = $(this).attr('data-itm-cod') || 'nah';
-        dvp.changeView('mpios', {
-            scope: 'dstrt',
-            code: code
-        });
-    });
-}
+};
 dvp.prepareInnerGeographiesMainView = function (hash, context) {
     var mpios = null;
     var cpoblds = null;
@@ -188,7 +173,7 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
             }
         }
     }
-}
+};
 dvp.prepareContactInfoView = function () {
     var context = {
         upperTip: "Contáctenos",
@@ -200,4 +185,4 @@ dvp.prepareContactInfoView = function () {
     };
     $('body').html(this.templates.contact(context));
     $('body').off('click');
-}
+};
