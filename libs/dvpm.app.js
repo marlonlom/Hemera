@@ -7,6 +7,7 @@ dvp.initialize = function () {
     this.templates.level01 = Handlebars.compile($("#hbt-level01").html());
     this.templates.level02 = Handlebars.compile($("#hbt-level02").html());
     this.templates.level03 = Handlebars.compile($("#hbt-level03").html());
+    this.templates.contact = Handlebars.compile($("#hbt-contact").html());
 }
 dvp.prepareMainView = function () {
     var searchMenu = [
@@ -48,15 +49,22 @@ dvp.changeView = function (hash, context) {
         dvp.prepareDistrtsMainView();
     } else if (hash === 'mpios' || hash === 'cpobs') {
         dvp.prepareInnerGeographiesMainView(hash, context);
+    } else if (hash === 'contact') {
+        dvp.prepareContactInfoView();
     }
+
     if (dvp.iscroll !== null) {
         dvp.iscroll.destroy();
         dvp.iscroll = null;
     }
     dvp.iscroll = new iScroll("wrapper");
-    $('body').on('click', 'img.back-home-icon', function (e) {
+    $('body').off('click', 'img.back-home-icon').on('click', 'img.back-home-icon', function (e) {
         e.preventDefault();
         dvp.prepareMainView();
+    });
+    $('body').off('click', 'img.vmap-icon').on('click', 'img.vmap-icon', function (e) {
+        e.preventDefault();
+        alert('voy pal mapa');
     });
 }
 dvp.prepareDeptosMainView = function () {
@@ -173,4 +181,16 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
             }
         }
     }
+}
+dvp.prepareContactInfoView = function () {
+    var context = {
+        upperTip: "Contáctenos",
+        nombre: "Departamento Administrativo Nacional de Estadística - DANE",
+        direccion: "Carrera 59 No.26-70 Interior I - CAN",
+        telefonos: "Conmutador (571) 5978300 - Fax (571) 5978399",
+        atencion: "Lunes a Viernes de 08:00 am a 05:00 pm",
+        email: "contacto@dane.gov.co"
+    };
+    $('body').html(this.templates.contact(context));
+    $('body').off('click');
 }
