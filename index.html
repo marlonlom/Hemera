@@ -13,9 +13,13 @@
          <!--scripts-->
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/zepto.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/zepto.detect.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/iscroll-lite.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/handlebars.js"></script>
         <script type="text/javascript" charset="utf-8" src="data/dvpm.data.js"></script>
+        <script type="text/javascript" charset="utf-8" src="data/dvpm.page.glossary.js"></script>
+        <script type="text/javascript" charset="utf-8" src="data/dvpm.page.evolution.js"></script>
+        <script type="text/javascript" charset="utf-8" src="data/dvpm.page.history.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/dvpm.app.js"></script>
         <script>
             function onBodyLoad() {
@@ -213,12 +217,22 @@
                         <b>{{upperTip}}</b>
                     </p>
                     <p class="contact-info">
-                        <b>Informaci&oacute;n de contacto:</b><br/>
-                        <span>{{nombre}}</span><br/>
+                        <span>{{tip01}}</span>
+                        <br/>
+                        <span>{{tip02}}</span>
+                        <br/><br/>
+                        <b>Contacto:</b><br/>
+                        <span>{{contactName}}</span><br/>
+                        <span>{{contactPhone}}</span><br/>
+                        <span>{{contactEmail}}</span><br/><br/>
+                    </p>
+                    <hr/>
+                    <p class="contact-info">
+                        <b>{{nombre}}</b><br/>
                         <span>Direcci&oacute;n:&nbsp;{{direccion}}</span><br/>
                         <span>Tel&eacute;fonos:&nbsp;{{telefonos}}</span><br/>
                         <span>Horario de atenci&oacute;n:&nbsp;{{atencion}}</span><br/>
-                        <span>Email:&nbsp;{{email}}</span><br/>
+                        <span>Email:&nbsp;{{email}}</span><br/><br/>
                     </p>
                     <p class="contact-button-bar">
                         <a href="tel:+5715978300">
@@ -262,7 +276,7 @@
                             <a href="#" data-about-link="dvpCronolg">{{dvpCronolg}}</a>
                         </li>
                         <li class="menu-li about-menu-item" >
-                            <a href="#" data-about-link="glossary">{{dvpGlossary}}</a>
+                            <a href="#" data-about-link="dvpGlossary">{{dvpGlossary}}</a>
                         </li>
                     </ul>
                 </div>
@@ -289,6 +303,61 @@
                         {{firstParagraph}}
                         <br/><br/>
                         {{secondParagraph}}
+                    </p>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container">
+                    <div class="footer-btn">
+                        <img src="img/icon-home.png" class="back-home-icon">
+                        Inicio
+                    </div>
+                </div>
+            </footer>
+        </script>
+        <script id="hbt-about-texts" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">DIVIPOLA</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <h4 class="texts-header">{{upperTip}}</h4>
+                    <p class="texts-content">
+                        {{#each phrases}}
+                        {{p}}
+                        <br/><br/>
+                        {{/each}}
+                    </p>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container">
+                    <div class="footer-btn">
+                        <img src="img/icon-home.png" class="back-home-icon">
+                        Inicio
+                    </div>
+                </div>
+            </footer>
+        </script>
+        <script id="hbt-about-evolution" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">DIVIPOLA</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <h4 class="texts-header">{{upperTip}}</h4>
+                    <p class="texts-content">
+                        {{#each listing}}
+                           <b>{{title}}</b><br/>
+                            {{#each leafs}}
+                            <a href="{{url}}">{{title}}</a><br/>
+                            {{/each}}
+                            <br/><br/>
+                        {{/each}}
                     </p>
                 </div>
             </div>

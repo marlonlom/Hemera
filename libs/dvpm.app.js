@@ -11,6 +11,11 @@ dvp.initialize = function () {
     this.templates.contact = Handlebars.compile($("#hbt-contact").html());
     this.templates.aboutlist = Handlebars.compile($("#hbt-about-list").html());
     this.templates.whois = Handlebars.compile($("#hbt-about-whois").html());
+    this.templates.texts = Handlebars.compile($("#hbt-about-texts").html());
+    this.templates.evolution = Handlebars.compile($("#hbt-about-evolution").html());
+};
+dvp.toggleClickEvent = function () {
+    return $.device.mobile ? 'tap' : 'click';
 };
 dvp.showAlert = function (message, title) {
     if (navigator.notification) {
@@ -44,14 +49,14 @@ dvp.prepareMainView = function () {
         menu: searchMenu
     }));
 
-    $('body').off('click').on('click', 'li.home-menu-item', function (e) {
+    $('body').off(dvp.toggleClickEvent()).on(dvp.toggleClickEvent(), 'li.home-menu-item', function (e) {
         e.preventDefault();
         var hash = $(this).attr('data-home-link') || 'nah';
         dvp.changeView(hash);
     });
 };
 dvp.changeView = function (hash, context) {
-    $('body').off('click');
+    $('body').off(dvp.toggleClickEvent());
     if (hash === 'deptos') {
         dvp.prepareRootGeographiesMainView('depto');
     } else if (hash === 'armtrps') {
@@ -72,13 +77,13 @@ dvp.changeView = function (hash, context) {
     }
     dvp.iscroll = new iScroll("wrapper");
 
-    $('body').on('click', 'img.back-home-icon', function (e) {
+    $('body').on(dvp.toggleClickEvent(), 'img.back-home-icon', function (e) {
         e.preventDefault();
         dvp.prepareMainView();
-    }).on('click', 'img.vmap-icon', function (e) {
+    }).on(dvp.toggleClickEvent(), 'img.vmap-icon', function (e) {
         e.preventDefault();
         dvp.showAlert('voy pal mapa', 'mapa');
-    }).on('click', 'img.save-xls-icon', function (e) {
+    }).on(dvp.toggleClickEvent(), 'img.save-xls-icon', function (e) {
         e.preventDefault();
         dvp.prepareInformationForXlsSaving();
     });
@@ -104,7 +109,7 @@ dvp.prepareRootGeographiesMainView = function (rootScope) {
     }
     $('body').html(this.templates.level01(context));
     $('li.item-li').addClass(rootScope + 's-li');
-    $('body').on('click', 'li.' + rootScope + 's-li a.itm-nom', function (e) {
+    $('body').on(dvp.toggleClickEvent(), 'li.' + rootScope + 's-li a.itm-nom', function (e) {
         e.preventDefault();
         var code = $(this).attr('data-itm-cod') || 'nah';
         dvp.changeView('mpios', {
@@ -157,7 +162,7 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
                     var odd = index % 2 === 0;
                     $(this).addClass(odd ? 'mpios-odd-li' : 'mpios-even-li');
                 });
-                $('body').on('click', 'li.mpios-li a.itm-nom', function (e) {
+                $('body').on(dvp.toggleClickEvent(), 'li.mpios-li a.itm-nom', function (e) {
                     e.preventDefault();
                     var code = $(this).attr('data-itm-cod') || 'nah';
                     context.mpio = code;
@@ -191,29 +196,26 @@ dvp.prepareAboutListingView = function () {
         dvpGlossary: "Glosario"
     };
     $('body').html(this.templates.aboutlist(context));
-    $('body').on('click', 'li.about-menu-item a', function (e) {
+    $('body').on(dvp.toggleClickEvent(), 'li.about-menu-item a', function (e) {
         e.preventDefault();
         var code = $(this).attr('data-about-link') || 'nah';
-        if(code==='leafs'){
+        if (code === 'leafs') {
             $('li.about-menu-item-leaf').toggle();
-        }else if(code==='dvpWhois'){
+        } else if (code === 'dvpWhois') {
             dvp.prepareAboutWhoisView();
-        }else if(code==='dvpHistory'){
-            
-        }else if(code==='dvpCronolg'){
-            
-        }else if(code==='dvpGlossary'){
-
+        } else if (code === 'dvpHistory') {
+            dvp.prepareAboutHistoryView();
+        } else if (code === 'dvpCronolg') {
+            dvp.prepareAboutEvolutionView();
+        } else if (code === 'dvpGlossary') {
+            dvp.prepareAboutGlossaryView();
         }
+        if (dvp.iscroll !== null) {
+            dvp.iscroll.destroy();
+            dvp.iscroll = null;
+        }
+        dvp.iscroll = new iScroll("wrapper");
     });
-};
-dvp.prepareAboutWhoisView = function () {
-    var context = {
-        upperTip: "¿Que es la DIVIPOLA?",
-        firstParagraph: "La División Político-administrativa de Colombia DIVIPOLA es un estándar de codificación que permite contar con un listado organizado y actualizado de la totalidad de unidades en que está dividido el territorio nacional, dándole a cada departamento,  municipio, territorio especial biodiverso y fronterizo y  centro poblado, el máximo de estabilidad en su identificación.",
-        secondParagraph: "Esta codificación, acorde con la dinámica territorial del país, es actualizada periódicamente por el Departamento Administrativo Nacional de Estadística (DANE), de acuerdo con la información suministrada por las administraciones municipales y departamentales, constituyéndose en fuente de consulta sobre la organización administrativa y política del país."
-    };
-    $('body').html(this.templates.whois(context));
 };
 dvp.prepareContactInfoView = function () {
     var context = {
@@ -222,7 +224,12 @@ dvp.prepareContactInfoView = function () {
         direccion: "Carrera 59 No.26-70 Interior I - CAN",
         telefonos: "Conmutador (571) 5978300 - Fax (571) 5978399",
         atencion: "Lunes a Viernes de 08:00 am a 05:00 pm",
-        email: "contacto@dane.gov.co"
+        email: "contacto@dane.gov.co",
+        tip01: "Para nosotros es importante conocer sus comentarios y sugerencias.",
+        tip02: "Cualquier comentario o inquietud en la información de la Codificación de la  División político-administrativa favor enviarla al DANE - Dirección de Geoestadística.",
+        contactName:"Ingeniera Olga Marina López Salinas.",
+        contactPhone:"(571) 5978340",
+        contactEmail:"omlopezs@dane.gov.co"
     };
     $('body').html(this.templates.contact(context));
 };
@@ -234,7 +241,27 @@ dvp.prepareInformationForXlsSaving = function () {
             codes.push(cod);
         }
     });
-    if(codes.length>0){
-        console.log('xls inputs',{items:codes,conn:dvp.isOnline()});
+    if (codes.length > 0) {
+        console.log('xls inputs', {
+            items: codes,
+            conn: dvp.isOnline()
+        });
     }
+};
+dvp.prepareAboutWhoisView = function () {
+    var context = {
+        upperTip: "¿Que es la DIVIPOLA?",
+        firstParagraph: "La División Político-administrativa de Colombia DIVIPOLA es un estándar de codificación que permite contar con un listado organizado y actualizado de la totalidad de unidades en que está dividido el territorio nacional, dándole a cada departamento,  municipio, territorio especial biodiverso y fronterizo y  centro poblado, el máximo de estabilidad en su identificación.",
+        secondParagraph: "Esta codificación, acorde con la dinámica territorial del país, es actualizada periódicamente por el Departamento Administrativo Nacional de Estadística (DANE), de acuerdo con la información suministrada por las administraciones municipales y departamentales, constituyéndose en fuente de consulta sobre la organización administrativa y política del país."
+    };
+    $('body').html(this.templates.whois(context));
+};
+dvp.prepareAboutHistoryView = function () {
+    $('body').html(dvp.templates.texts(dvpHistoryContext));
+};
+dvp.prepareAboutEvolutionView = function () {
+    $('body').html(dvp.templates.evolution(dvpEvolutionContext));
+};
+dvp.prepareAboutGlossaryView = function () {
+    $('body').html(dvp.templates.texts(dvpGlossaryContext));
 };

@@ -173,6 +173,14 @@ li.about-menu-item-leaf a {
     color:#000000;
     text-decoration:none;
 }
+h4.texts-header {
+    margin: 5px;
+    padding: 0;
+    margin-bottom: 20px;
+}
+p.texts-content{
+    margin:5px;
+}
 #footer {
     position:absolute;
     z-index:2;
@@ -193,7 +201,7 @@ li.about-menu-item-leaf a {
 }
 #footer div.footer-container .footer-btn {
     text-align: center;
-    width: 44px;
+    width: 48px;
     padding-right: 5px;
     color: #fff;
     line-height: 10px;
