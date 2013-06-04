@@ -244,8 +244,9 @@ dvp.prepareInformationForXlsSaving = function () {
     if (codes.length > 0) {
         console.log('xls inputs', {
             items: codes,
-            conn: dvp.isOnline()
+            conn: dvp.isOnline
         });
+        dvp.showAlert('Datos del excel listos para descargar? '+dvp.isOnline,'guardar listado');
     }
 };
 dvp.prepareAboutWhoisView = function () {
