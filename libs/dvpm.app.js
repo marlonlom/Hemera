@@ -1,6 +1,7 @@
 var dvp = {
     templates: {},
     isOnline: false,
+    atHome: true,
     iscroll: null
 };
 dvp.initialize = function () {
@@ -58,6 +59,7 @@ dvp.prepareMainView = function () {
 };
 dvp.changeView = function (hash, context) {
     $('body').off(dvp.toggleClickEvent());
+    dvp.atHome = false;
     if (hash === 'deptos') {
         dvp.prepareRootGeographiesMainView('depto');
     } else if (hash === 'armtrps') {
@@ -80,6 +82,7 @@ dvp.changeView = function (hash, context) {
 
     $('body').on(dvp.toggleClickEvent(), 'img.back-home-icon', function (e) {
         e.preventDefault();
+        dvp.atHome = true;
         dvp.prepareMainView();
     }).on(dvp.toggleClickEvent(), 'img.vmap-icon', function (e) {
         e.preventDefault();

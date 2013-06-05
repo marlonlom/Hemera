@@ -40,19 +40,15 @@
         
             function closeAppConfirm(btn) {
                 if (btn === 1) {
-                    if (window.navigator && window.navigator.app) {
-                        navigator.app.exitApp();
-                    }
+                   navigator.app.exitApp() ;
+                }else{
+                   dvp.prepareMainView(); 
                 }
             }
         
-            function onBackKeyDown() {
-                if (dvp.atHome === true) {
-                    if (window.navigator && window.navigator.notification) {
-                        navigator.notification.confirm('Salir de la aplicación?', closeAppConfirm, 'Saliendo', 'Salir,Cancelar');
-                    }
-                } else {
-                    dvp.prepareMainView();
+            function onBackKeyDown() { 
+                if (navigator.notification) {
+                    navigator.notification.confirm('Salir de la aplicación?', closeAppConfirm, 'Saliendo', 'Salir,Cancelar'); 
                 }
             }
         
