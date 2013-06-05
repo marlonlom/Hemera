@@ -54,12 +54,10 @@
         
             function onOffline() {
                 dvp.isOnline = false;
-                dvp.showAlert('no hay conexión de internet', 'estado de conexión');
             }
         
             function onOnline() {
                 dvp.isOnline = true;
-                dvp.showAlert('está conectado a internet', 'estado de conexión');
             }
             if (!$) {
                 $ = Zepto;
@@ -111,11 +109,12 @@
                             {{#if tip_bog}}
                             <span class="tip_bog">{{tip_bog}}</span>
                             {{/if}}
+                            <span class="data-treeline">{{treeline}}</span>
                         </li>
                         {{#each list}}
                         <li class="menu-li item-li">
                             <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
-                            <img src="img/map.png" class="vmap-icon" />
+                            <img src="img/map.png" data-treeline="{{treeline}}" data-itm-cod="{{cod}}" class="vmap-icon" />
                             <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
                         </li>
                         {{/each}}
@@ -152,12 +151,13 @@
                                     &nbsp;({{level01_cod}})
                                     {{/if}}
                                 </span>
+                                <span class="data-treeline">{{treeline}}</span>
                             </div>
                         </li>
                         {{#each list}}
                         <li class="menu-li item-li">
                             <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
-                            <img src="img/map.png" class="vmap-icon" />
+                            <img src="img/map.png" data-itm-cod="{{cod}}" class="vmap-icon" />
                             <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
                         </li>
                         {{/each}}
@@ -195,12 +195,13 @@
                                     {{/if}}
                                 </span><br/>
                                 <span>{{level02_nom}}&nbsp;({{level02_cod}})</span>
+                                <span class="data-treeline">{{treeline}}</span>
                             </div>
                         </li>
                         {{#each list}}
                         <li class="menu-li item-li">
                             <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
-                            <img src="img/map.png" class="vmap-icon" />
+                            <img src="img/map.png" data-treeline="{{treeline}}" data-itm-cod="{{cod}}" class="vmap-icon" />
                             <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
                         </li>
                         {{/each}}
@@ -393,7 +394,19 @@
             </header>
             <div id="wrapper">
                 <div id="scroller">
-                    <h4 class="texts-header">{{upperTip}}</h4>
+                    <div class="map-title">
+                        <span>{{level01_nom}}
+                            {{#if level01_cod}}
+                            &nbsp;({{level01_cod}})
+                            {{/if}}
+                        </span><br/>
+                        {{#if level02_cod}}
+                        <span>{{level02_nom}}&nbsp;({{level02_cod}})</span>
+                        {{/if}}
+                        {{#if level03_cod}}
+                        <span>{{level03_nom}}&nbsp;({{level03_cod}})</span>
+                        {{/if}}
+                    </div>
                     <div class="map-wrapper">
                         <div id="the-map"></div>
                     </div>

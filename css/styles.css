@@ -106,7 +106,7 @@ li.deptos-li a.itm-cod, li.mpios-li a.itm-cod, li.cpobs-li a.itm-cod {
     margin-right:10px;
     margin-left:5px;
 }
-div.mpio-li-title, div.cpob-li-title {
+div.mpio-li-title, div.cpob-li-title, div.map-title {
     float:left;
     width: 85%;
     font-size: 12px;
@@ -178,8 +178,11 @@ h4.texts-header {
     padding: 0;
     margin-bottom: 20px;
 }
-p.texts-content{
+p.texts-content {
     margin:5px;
+}
+span.data-treeline {
+    display:none;
 }
 #footer {
     position:absolute;

@@ -86,7 +86,8 @@ dvp.changeView = function (hash, context) {
         dvp.prepareMainView();
     }).on(dvp.toggleClickEvent(), 'img.vmap-icon', function (e) {
         e.preventDefault();
-        dvp.prepareMappingView();
+        var btn = $(this);
+        dvp.prepareMappingView(btn);
     }).on(dvp.toggleClickEvent(), 'img.save-xls-icon', function (e) {
         e.preventDefault();
         dvp.prepareInformationForXlsSaving();
@@ -96,17 +97,20 @@ dvp.prepareRootGeographiesMainView = function (rootScope) {
     var context = {};
     if (rootScope === 'depto') {
         context = {
+            treeline:'departamentos',
             upperTip: "Códigos por departamento",
             tip_bog: "Nota: No se debe tener en cuenta a Bogotá D.C. como departamento.",
             list: data.departamentos
         };
     } else if (rootScope === 'armtrp') {
         context = {
+            treeline:'areasmetrop',
             upperTip: "Códigos por área metropolitana",
             list: data.areasmetrop
         };
     } else if (rootScope === 'dstrt') {
         context = {
+            treeline:'distritos',
             upperTip: "Códigos por distritos",
             list: data.distritos
         };
@@ -161,6 +165,7 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
                 delete inputcxt.level01_cod;
             }
             if (hash === 'mpios') {
+                inputcxt['treeline'] = scope_field + ',' + context.scope;
                 $('body').html(this.templates.level02(inputcxt));
                 $('li.item-li').addClass('mpios-li').each(function (index) {
                     var odd = index % 2 === 0;
@@ -180,6 +185,7 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
                     inputcxt['level02_nom'] = level02_itm[0].nom;
                     inputcxt['level02_cod'] = level02_itm[0].cod;
                     inputcxt['list'] = cpoblds;
+                    inputcxt['treeline'] = scope_field+','+context.scope+',mpio';
                     $('body').html(this.templates.level03(inputcxt));
                 }
                 $('li.item-li').addClass('cpobs-li').each(function (index) {
@@ -246,11 +252,11 @@ dvp.prepareInformationForXlsSaving = function () {
         }
     });
     if (codes.length > 0) {
-        console.log('xls inputs', {
-            items: codes,
-            conn: dvp.isOnline
-        });
-        dvp.showAlert('Datos del excel listos para descargar? '+dvp.isOnline,'guardar listado');
+        if (dvp.isOnline === false) {
+            dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
+        }else{
+            dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');
+        }
     }
 };
 dvp.prepareAboutWhoisView = function () {
@@ -269,7 +275,34 @@ dvp.prepareAboutEvolutionView = function () {
 };
 dvp.prepareAboutGlossaryView = function () {
     $('body').html(dvp.templates.texts(dvpGlossaryContext));
-};
-dvp.prepareMappingView = function () {
-    dvp.showAlert('estoy online? '+dvp.isOnline,'ver mapa')
+};dvp.prepareMappingView = function (btn) {
+    if (dvp.isOnline === false) {
+        dvp.showAlert('no hay conexión a internet.', 'Cargar mapa');
+    } else {
+        var cod = btn.attr('data-itm-cod') || 'nah';
+        var tree = $('span.data-treeline').html() || 'nah';
+        var itm = null;
+        console.log('treeline', {
+            t: tree,
+            c: cod
+        });
+        if (cod !== 'nah') {
+            var treelevel = tree.split(',');
+            if (treelevel.length === 1) {
+                itm = $.grep(data[treelevel[0]], function (item, index) {
+                    return item['cod'] === cod;
+                })[0];
+            }else if (treelevel.length === 2) {
+                itm = [];
+                var temp0 = $.grep(data.municipios, function (item, index) {
+                    return item[treelevel[1]] === cod;
+                });
+                console.log('itm',{i:temp0});
+                if (temp0 !== null) {
+                    itm[0] = temp0;
+                }
+            }
+        }
+        /* $('body').html(dvp.templates.mapping(dvpGlossaryContext));*/
+    }
 };
