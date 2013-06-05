@@ -24,28 +24,46 @@
         <script type="text/javascript" charset="utf-8" src="libs/dvpm.app.js"></script>
         <script>
             function onBodyLoad() {
-                document.addEventListener("deviceready", onDeviceReady, false); 
+                document.addEventListener("deviceready", onDeviceReady, false);
             }
-            function onDeviceReady() { 
-                if(window.navigator && window.navigator.splashscreen){ 
-                    setTimeout(function(){
+        
+            function onDeviceReady() {
+                if (window.navigator && window.navigator.splashscreen) {
+                    setTimeout(function() {
                         window.navigator.splashscreen.hide();
-                    },1000);
+                    }, 1000);
                 }
                 document.addEventListener("offline", onOffline, false);
                 document.addEventListener("online", onOnline, false);
                 document.addEventListener("backbutton", onBackKeyDown, false);
             }
-            function onBackKeyDown() {
-                dvp.prepareMainView();
+        
+            function closeAppConfirm(btn) {
+                if (btn === 1) {
+                    if (window.navigator && window.navigator.app) {
+                        navigator.app.exitApp();
+                    }
+                }
             }
-            function onOffline() { 
-                dvp.isOnline=false; 
-                dvp.showAlert('no hay conexión de internet','estado de conexión'); 
-            } 
-            function onOnline() { 
-                dvp.isOnline=true; 
-                dvp.showAlert('está conectado a internet','estado de conexión'); 
+        
+            function onBackKeyDown() {
+                if (dvp.atHome === true) {
+                    if (window.navigator && window.navigator.notification) {
+                        navigator.notification.confirm('Salir de la aplicación?', closeAppConfirm, 'Saliendo', 'Salir,Cancelar');
+                    }
+                } else {
+                    dvp.prepareMainView();
+                }
+            }
+        
+            function onOffline() {
+                dvp.isOnline = false;
+                dvp.showAlert('no hay conexión de internet', 'estado de conexión');
+            }
+        
+            function onOnline() {
+                dvp.isOnline = true;
+                dvp.showAlert('está conectado a internet', 'estado de conexión');
             }
             if (!$) {
                 $ = Zepto;
