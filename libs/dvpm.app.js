@@ -13,6 +13,7 @@ dvp.initialize = function () {
     this.templates.whois = Handlebars.compile($("#hbt-about-whois").html());
     this.templates.texts = Handlebars.compile($("#hbt-about-texts").html());
     this.templates.evolution = Handlebars.compile($("#hbt-about-evolution").html());
+    this.templates.mapping = Handlebars.compile($("#hbt-mapping").html());
 };
 dvp.toggleClickEvent = function () {
     return $.device.mobile ? 'tap' : 'click';
@@ -82,7 +83,7 @@ dvp.changeView = function (hash, context) {
         dvp.prepareMainView();
     }).on(dvp.toggleClickEvent(), 'img.vmap-icon', function (e) {
         e.preventDefault();
-        dvp.showAlert('voy pal mapa', 'mapa');
+        dvp.prepareMappingView();
     }).on(dvp.toggleClickEvent(), 'img.save-xls-icon', function (e) {
         e.preventDefault();
         dvp.prepareInformationForXlsSaving();
@@ -265,4 +266,7 @@ dvp.prepareAboutEvolutionView = function () {
 };
 dvp.prepareAboutGlossaryView = function () {
     $('body').html(dvp.templates.texts(dvpGlossaryContext));
+};
+dvp.prepareMappingView = function () {
+    dvp.showAlert('estoy online? '+dvp.isOnline,'ver mapa')
 };
