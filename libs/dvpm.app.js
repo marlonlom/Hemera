@@ -17,7 +17,7 @@ dvp.initialize = function () {
     this.templates.mapping = Handlebars.compile($("#hbt-mapping").html());
 };
 dvp.toggleClickEvent = function () {
-    return $.device.mobile ? 'tap' : 'click';
+    return $.device.mobile ? 'touchend' : 'click';
 };
 dvp.showAlert = function (message, title) {
     if (navigator.notification) {
@@ -276,32 +276,49 @@ dvp.prepareAboutEvolutionView = function () {
 dvp.prepareAboutGlossaryView = function () {
     $('body').html(dvp.templates.texts(dvpGlossaryContext));
 };dvp.prepareMappingView = function (btn) {
-    if (dvp.isOnline === false) {
-        dvp.showAlert('no hay conexión a internet.', 'Cargar mapa');
+    if ($.device.mobile && dvp.isOnline === false) {
+        dvp.showAlert('No hay conexión a internet.', 'Cargar mapa');
     } else {
         var cod = btn.attr('data-itm-cod') || 'nah';
         var tree = $('span.data-treeline').html() || 'nah';
-        var itm = null;
-        console.log('treeline', {
-            t: tree,
-            c: cod
-        });
+        var itm = [];
         if (cod !== 'nah') {
             var treelevel = tree.split(',');
             if (treelevel.length === 1) {
-                itm = $.grep(data[treelevel[0]], function (item, index) {
+                itm[0] = $.grep(data[treelevel[0]], function (item, index) {
                     return item['cod'] === cod;
                 })[0];
             }else if (treelevel.length === 2) {
-                itm = [];
-                var temp0 = $.grep(data.municipios, function (item, index) {
-                    return item[treelevel[1]] === cod;
+                var mpio_itm = $.grep(data.municipios, function (item, index) {
+                    return item['cod'] === cod;
                 });
-                console.log('itm',{i:temp0});
-                if (temp0 !== null) {
-                    itm[0] = temp0;
+                if(mpio_itm!==null && mpio_itm.length>0){
+                    itm[1] = mpio_itm[0];
+                    var rootCode = mpio_itm[0][treelevel[1]];
+                    itm[0] = $.grep(data[treelevel[0]], function (item, index) {
+                        return item['cod'] === rootCode;
+                    })[0];
+                }
+            }else if (treelevel.length === 3) {
+                var cpob_itm = $.grep(data.cpoblados, function (item, index) {
+                    return item['cod'] === cod;
+                });
+                if(cpob_itm!==null && cpob_itm.length>0){
+                    itm[2] = cpob_itm[0];
+                    var mpioCode = cpob_itm[0][treelevel[2]];
+                    var mpio_itm= $.grep(data.municipios, function (item, index) {
+                        return item['cod'] === mpioCode;
+                    });
+                    if(mpio_itm!==null && mpio_itm.length>0){
+                        itm[1] = mpio_itm[0];
+                        var rootCode = mpio_itm[0][treelevel[1]];
+                        itm[0] = $.grep(data[treelevel[0]], function (item, index) {
+                            return item['cod'] === rootCode;
+                        })[0];
+                    }
                 }
             }
+            console.log('itm',{itm:itm});
         }
         /* $('body').html(dvp.templates.mapping(dvpGlossaryContext));*/
     }
