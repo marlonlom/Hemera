@@ -252,7 +252,7 @@ dvp.prepareInformationForXlsSaving = function () {
         }
     });
     if (codes.length > 0) {
-        if (dvp.isOnline === false) {
+        if ($.device.mobile && dvp.isOnline === false) {
             dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
         }else{
             dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');
