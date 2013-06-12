@@ -254,7 +254,7 @@ dvp.prepareInformationForXlsSaving = function () {
     if (codes.length > 0) {
         if ($.device.mobile && dvp.isOnline === false) {
             dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
-        }else{
+        }else if ($.device.mobile && dvp.isOnline === true) {
             dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');
         }
     }
@@ -278,7 +278,7 @@ dvp.prepareAboutGlossaryView = function () {
 };dvp.prepareMappingView = function (btn) {
     if ($.device.mobile && dvp.isOnline === false) {
         dvp.showAlert('No hay conexión a internet.', 'Cargar mapa');
-    } else {
+    } else if ($.device.mobile && dvp.isOnline === true) {
         var cod = btn.attr('data-itm-cod') || 'nah';
         var tree = $('span.data-treeline').html() || 'nah';
         var itm = [];

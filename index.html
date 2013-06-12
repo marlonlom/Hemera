@@ -18,6 +18,7 @@
         <script type="text/javascript" charset="utf-8" src="libs/iscroll-lite.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/handlebars.js"></script>
         <script type="text/javascript" charset="utf-8" src="data/dvpm.data.js"></script>
+        <script type="text/javascript" charset="utf-8" src="data/dvpm.mapdata.js"></script>
         <script type="text/javascript" charset="utf-8" src="data/dvpm.page.glossary.js"></script>
         <script type="text/javascript" charset="utf-8" src="data/dvpm.page.evolution.js"></script>
         <script type="text/javascript" charset="utf-8" src="data/dvpm.page.history.js"></script>
@@ -370,7 +371,7 @@
                         {{#each listing}}
                            <b>{{title}}</b><br/>
                             {{#each leafs}}
-                            <a href="{{url}}">{{title}}</a><br/>
+                            <a href="{{url}}" target="_system">{{title}}</a><br/>
                             {{/each}}
                             <br/><br/>
                         {{/each}}
