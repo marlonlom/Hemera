@@ -1,6 +1,5 @@
 var dvp = {
     templates: {},
-    isOnline: false,
     atHome: true,
     iscroll: null
 };
@@ -15,6 +14,10 @@ dvp.initialize = function () {
     this.templates.texts = Handlebars.compile($("#hbt-about-texts").html());
     this.templates.evolution = Handlebars.compile($("#hbt-about-evolution").html());
     this.templates.mapping = Handlebars.compile($("#hbt-mapping").html());
+};
+dvp.isOffline = function () {
+    var connectionType = navigator.network.connection.type;
+    return connectionType == Connection.NONE || connectionType == Connection.UNKNOWN)
 };
 dvp.toggleClickEvent = function () {
     return $.device.mobile ? 'touchend' : 'click';
@@ -252,9 +255,9 @@ dvp.prepareInformationForXlsSaving = function () {
         }
     });
     if (codes.length > 0) {
-        if ($.device.mobile && dvp.isOnline === false) {
+        if ($.device.mobile && dvp.isOffline() === false) {
             dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
-        }else if ($.device.mobile && dvp.isOnline === true) {
+        }else if ($.device.mobile && dvp.isOffline() === true) {
             dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');
         }
     }
@@ -272,13 +275,20 @@ dvp.prepareAboutHistoryView = function () {
 };
 dvp.prepareAboutEvolutionView = function () {
     $('body').html(dvp.templates.evolution(dvpEvolutionContext));
+    $('body').on(dvp.toggleClickEvent(), 'a.evolution-link', function (e) {
+        e.preventDefault();
+        var attrLink = $(this).attr('href') || 'none';
+        if(attrLink !== 'none'){
+            window.open(attrLink,'_system');
+        }
+    });
 };
 dvp.prepareAboutGlossaryView = function () {
     $('body').html(dvp.templates.texts(dvpGlossaryContext));
 };dvp.prepareMappingView = function (btn) {
-    if ($.device.mobile && dvp.isOnline === false) {
+    if ($.device.mobile && dvp.isOffline() === false) {
         dvp.showAlert('No hay conexión a internet.', 'Cargar mapa');
-    } else if ($.device.mobile && dvp.isOnline === true) {
+    } else if ($.device.mobile && dvp.isOffline() === true) {
         var cod = btn.attr('data-itm-cod') || 'nah';
         var tree = $('span.data-treeline').html() || 'nah';
         var itm = [];

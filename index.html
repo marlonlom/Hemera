@@ -9,12 +9,12 @@
         <meta name="apple-mobile-web-app-capable" content="yes" />
         <!--styles-->
         <link href=css/styles.css rel=stylesheet>
-         <!--scripts-->
+        <!--scripts-->
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
         <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript" charset="utf-8" src="libs/zepto.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/zepto.detect.min.js"></script>
-        <script type="text/javascript" charset="utf-8" src="libs/zepto.touch.min.js"></script>
+        <script type="text/javascript" charset="utf-8" src="libs/fastclick.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/iscroll-lite.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/handlebars.js"></script>
         <script type="text/javascript" charset="utf-8" src="data/dvpm.data.js"></script>
@@ -34,8 +34,6 @@
                         window.navigator.splashscreen.hide();
                     }, 1000);
                 }
-                document.addEventListener("offline", onOffline, false);
-                document.addEventListener("online", onOnline, false);
                 document.addEventListener("backbutton", onBackKeyDown, false);
             }
         
@@ -53,17 +51,11 @@
                 }
             }
         
-            function onOffline() {
-                dvp.isOnline = false;
-            }
-        
-            function onOnline() {
-                dvp.isOnline = true;
-            }
             if (!$) {
                 $ = Zepto;
             };
             $(function($) {
+                FastClick.attach(document.body);
                 dvp.initialize();
                 dvp.prepareMainView();
                 document.addEventListener('touchmove', function(e) {
@@ -371,7 +363,7 @@
                         {{#each listing}}
                            <b>{{title}}</b><br/>
                             {{#each leafs}}
-                            <a href="{{url}}" target="_system">{{title}}</a><br/>
+                            <a href="{{url}}" class="evolution-link">{{title}}</a><br/>
                             {{/each}}
                             <br/><br/>
                         {{/each}}
