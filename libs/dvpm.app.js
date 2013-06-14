@@ -328,8 +328,20 @@ dvp.prepareAboutGlossaryView = function () {
                     }
                 }
             }
-            console.log('itm',{itm:itm});
+            var mapContext = {};
+            if(itm[0]['cod']){
+                mapContext['level01_cod'] = itm[0]['cod'];
+            }
+            mapContext['level01_nom'] = itm[0]['nom'];
+            if(itm[1]){
+                mapContext['level01_cod'] = itm[1]['com'];
+                mapContext['level02_nom'] = itm[1]['nom'];
+            }
+            if(itm[2]){
+                mapContext['level03_cod'] = itm[2]['com'];
+                mapContext['level03_nom'] = itm[2]['nom'];
+            }
+            $('body').html(dvp.templates.mapping(mapContext));
         }
-        /* $('body').html(dvp.templates.mapping(dvpGlossaryContext));*/
     }
 };
