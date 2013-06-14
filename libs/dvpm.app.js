@@ -17,7 +17,7 @@ dvp.initialize = function () {
 };
 dvp.isOffline = function () {
     var connectionType = navigator.network.connection.type;
-    return connectionType == Connection.NONE || connectionType == Connection.UNKNOWN)
+    return (connectionType == Connection.NONE || connectionType == Connection.UNKNOWN);
 };
 dvp.toggleClickEvent = function () {
     return $.device.mobile ? 'touchend' : 'click';
@@ -255,9 +255,9 @@ dvp.prepareInformationForXlsSaving = function () {
         }
     });
     if (codes.length > 0) {
-        if ($.device.mobile && dvp.isOffline() === false) {
+        if (dvp.isOffline() === false) {
             dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
-        }else if ($.device.mobile && dvp.isOffline() === true) {
+        }else {
             dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');
         }
     }
@@ -286,9 +286,9 @@ dvp.prepareAboutEvolutionView = function () {
 dvp.prepareAboutGlossaryView = function () {
     $('body').html(dvp.templates.texts(dvpGlossaryContext));
 };dvp.prepareMappingView = function (btn) {
-    if ($.device.mobile && dvp.isOffline() === false) {
+    if (dvp.isOffline() === false) {
         dvp.showAlert('No hay conexión a internet.', 'Cargar mapa');
-    } else if ($.device.mobile && dvp.isOffline() === true) {
+    } else {
         var cod = btn.attr('data-itm-cod') || 'nah';
         var tree = $('span.data-treeline').html() || 'nah';
         var itm = [];
