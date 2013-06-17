@@ -36,7 +36,7 @@
             }
             function obtainRootFileSystem() {
                 window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+                window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, gotFS, fail);
                 function onSuccess(fileEntry) {
                     console.log(fileEntry.name);
                     dvp.showAlert('fileEntry: '+fileEntry.name,'fileEntry');
