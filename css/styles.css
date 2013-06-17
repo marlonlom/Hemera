@@ -131,33 +131,32 @@ li.mpios-odd-li, li.cpobs-odd-li {
 li.mpios-even-li, li.cpobs-even-li {
     background:#ffffff;
 }
-p.contact-header, p.contact-button-bar {
-    clear:both;
+b.contact-header {
+    padding:5px 0px;
+    width:100%;
+    display:block;
+    text-align:center;
 }
-p.contact-header {
-    height: 30px;
-    padding-left: 5px;
-    padding-right: 5px;
-}
-p.contact-header h4 {
-    float:left;
-}
-p.contact-info {
+.contact-info {
+    padding:0px 5px;
+    width:100%;
+    display:block;
     margin: 0;
-    padding-left: 5px;
-    padding-right: 5px;
     font-size: 11px;
 }
-p.contact-button-bar {
+.contact-button-bar {
     padding-top: 10px;
     margin:0;
+    clear:both;
     padding-left: 5px;
     padding-right: 5px;
     padding-bottom: 10px;
 }
-p.contact-button-bar img {
-    float:left;
+.contact-button-bar a{
     margin:5px;
+    text-decoration:none;
+} 
+.contact-button-bar img {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
     border-radius: 5px;

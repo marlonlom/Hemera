@@ -27,7 +27,14 @@
             function onBodyLoad() {
                 document.addEventListener("deviceready", onDeviceReady, false);
             }
-        
+            function fail(evt) {
+                console.log(evt.target.error.code); 
+            }
+            function gotFS() {
+                dvp.rootFS = fileSystem.root;    
+                dvp.showAlert('root: '+dvp.rootFS,'filesystem');
+            }
+            
             function onDeviceReady() {
                 if (window.navigator && window.navigator.splashscreen) {
                     setTimeout(function() {
@@ -35,6 +42,8 @@
                     }, 1000);
                 }
                 document.addEventListener("backbutton", onBackKeyDown, false);
+                window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
             }
         
             function closeAppConfirm(btn) {
@@ -222,10 +231,8 @@
             </header>
             <div id="wrapper">
                 <div id="scroller">
-                    <p class="contact-header">
-                        <b>{{upperTip}}</b>
-                    </p>
-                    <p class="contact-info">
+                    <b class="contact-header">{{upperTip}}</b>
+                    <span class="contact-info">
                         <span>{{tip01}}</span>
                         <br/>
                         <span>{{tip02}}</span>
@@ -233,24 +240,23 @@
                         <b>Contacto:</b><br/>
                         <span>{{contactName}}</span><br/>
                         <span>{{contactPhone}}</span><br/>
-                        <span>{{contactEmail}}</span><br/><br/>
-                    </p>
-                    <hr/>
-                    <p class="contact-info">
+                        <span>{{contactEmail}}</span><br/>
+                        <br/>
                         <b>{{nombre}}</b><br/>
                         <span>Direcci&oacute;n:&nbsp;{{direccion}}</span><br/>
                         <span>Tel&eacute;fonos:&nbsp;{{telefonos}}</span><br/>
                         <span>Horario de atenci&oacute;n:&nbsp;{{atencion}}</span><br/>
                         <span>Email:&nbsp;{{email}}</span><br/><br/>
-                    </p>
-                    <p class="contact-button-bar">
-                        <a href="tel:+5715978300">
-                            <img src="img/icon-contact-call.png" />
-                        </a>
-                        <a href="mailto:{{email}}">
-                            <img src="img/icon-contact-email.png" />
-                        </a>
-                    </p>
+                        <span class="contact-button-bar">
+                            <a href="tel:+5715978300">
+                                <img src="img/icon-contact-call.png" />
+                            </a>
+                            <a href="mailto:{{email}}">
+                                <img src="img/icon-contact-email.png" />
+                            </a>
+                        </span>
+                    </span>
+                    
                 </div>
             </div>
             <footer id="footer">

@@ -16,7 +16,7 @@ dvp.initialize = function () {
     this.templates.mapping = Handlebars.compile($("#hbt-mapping").html());
 };
 dvp.isOffline = function () {
-    var connectionType = navigator.network.connection.type;
+    var connectionType = navigator.connection.type;
     return (connectionType == Connection.NONE || connectionType == Connection.UNKNOWN);
 };
 dvp.toggleClickEvent = function () {
