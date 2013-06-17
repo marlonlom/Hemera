@@ -263,7 +263,7 @@ dvp.prepareInformationForXlsSaving = function () {
         }
     });
     if (codes.length > 0) {
-        if (dvp.isOffline() === false) {
+        if (dvp.isOffline() === true) {
             dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
         }else {
             dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');
@@ -294,7 +294,7 @@ dvp.prepareAboutEvolutionView = function () {
 dvp.prepareAboutGlossaryView = function () {
     $('body').html(dvp.templates.texts(dvpGlossaryContext));
 };dvp.prepareMappingView = function (btn) {
-    if (dvp.isOffline() === false) {
+    if (dvp.isOffline() === true) {
         dvp.showAlert('No hay conexión a internet.', 'Cargar mapa');
     } else {
         var cod = btn.attr('data-itm-cod') || 'nah';
