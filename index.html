@@ -32,7 +32,7 @@
             }
             function gotFS() {
                 dvp.rootFS = fileSystem.root;    
-                dvp.showAlert('root: '+dvp.rootFS,'filesystem');
+                dvp.showAlert('root: '+dvp.rootFS.fullPath,'filesystem');
             }
             
             function onDeviceReady() {
