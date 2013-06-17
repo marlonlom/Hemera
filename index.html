@@ -34,10 +34,14 @@
                 dvp.rootFS = fileSystem.root;    
                 dvp.showAlert('root: '+dvp.rootFS.fullPath,'filesystem');
             }
-            
             function obtainRootFileSystem() {
                 window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
                 window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+                function onSuccess(fileEntry) {
+                    console.log(fileEntry.name);
+                    dvp.showAlert('fileEntry: '+fileEntry.name,'fileEntry');
+                }
+                window.resolveLocalFileSystemURI("file:///data/xls/Listado_2008.xls", onSuccess, fail);
             }
             
             function onDeviceReady() {
