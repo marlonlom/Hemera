@@ -30,7 +30,7 @@
             function fail(evt) {
                 console.log(evt.target.error.code); 
             }
-            function gotFS() {
+            function gotFS(fileSystem) {
                 dvp.rootFS = fileSystem.root;    
                 dvp.showAlert('root: '+dvp.rootFS.fullPath,'filesystem');
             }
