@@ -29,6 +29,12 @@ dvp.showAlert = function (message, title) {
         alert(title ? (title + ": " + message) : message);
     }
 };
+dvp.handleDANEWebpageAccess = function () {
+    $('body').on(dvp.toggleClickEvent(), '.danelogo1', function (e) {
+        e.preventDefault();
+        window.open('http://www.dane.gov.co', '_system');
+    });
+};
 dvp.prepareMainView = function () {
     var searchMenu = [
         {
@@ -59,6 +65,7 @@ dvp.prepareMainView = function () {
         var hash = $(this).attr('data-home-link') || 'nah';
         dvp.changeView(hash);
     });
+    dvp.handleDANEWebpageAccess();
 };
 dvp.changeView = function (hash, context) {
     $('body').off(dvp.toggleClickEvent());
@@ -95,6 +102,7 @@ dvp.changeView = function (hash, context) {
         e.preventDefault();
         dvp.prepareInformationForXlsSaving();
     });
+    dvp.handleDANEWebpageAccess();
 };
 dvp.prepareRootGeographiesMainView = function (rootScope) {
     var context = {};
