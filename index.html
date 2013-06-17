@@ -35,15 +35,19 @@
                 dvp.showAlert('root: '+dvp.rootFS.fullPath,'filesystem');
             }
             
+            function obtainRootFileSystem() {
+                window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
+                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
+            }
+            
             function onDeviceReady() {
                 if (window.navigator && window.navigator.splashscreen) {
                     setTimeout(function() {
                         window.navigator.splashscreen.hide();
+                        obtainRootFileSystem();
                     }, 1000);
                 }
                 document.addEventListener("backbutton", onBackKeyDown, false);
-                window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
-                window.requestFileSystem(LocalFileSystem.PERSISTENT, 0, gotFS, fail);
             }
         
             function closeAppConfirm(btn) {
