@@ -1,6 +1,12 @@
 var dvp = {
     templates: {},
     atHome: true,
+    ctx: {
+        root01: 'none',
+        root02: 'none',
+        level: '',
+        items: ''
+    },
     iscroll: null
 };
 dvp.initialize = function () {
@@ -16,8 +22,8 @@ dvp.initialize = function () {
     this.templates.mapping = Handlebars.compile($("#hbt-mapping").html());
 };
 dvp.isOffline = function () {
-    var connectionType = navigator.connection.type;
-    return (connectionType == Connection.NONE || connectionType == Connection.UNKNOWN);
+    var connectionType = navigator.connection ? navigator.connection.type : null;
+    return connectionType !== null && (connectionType == Connection.NONE || connectionType == Connection.UNKNOWN);
 };
 dvp.toggleClickEvent = function () {
     return $.device.mobile ? 'touchend' : 'click';
@@ -101,6 +107,15 @@ dvp.changeView = function (hash, context) {
     }).on(dvp.toggleClickEvent(), 'img.save-xls-icon', function (e) {
         e.preventDefault();
         dvp.prepareInformationForXlsSaving();
+    }).on(dvp.toggleClickEvent(), 'img.back-prev-icon', function (e) {
+        e.preventDefault();
+        var prev_page = $('#prev-page').val() || 'none';
+        if(prev_page==='home'){
+            dvp.atHome = true;
+        dvp.prepareMainView();
+        }else{
+            dvp.changeView(prev_page);
+        }
     });
     dvp.handleDANEWebpageAccess();
 };
@@ -108,25 +123,31 @@ dvp.prepareRootGeographiesMainView = function (rootScope) {
     var context = {};
     if (rootScope === 'depto') {
         context = {
-            treeline:'departamentos',
+            treeline: 'departamentos',
             upperTip: "Códigos por departamento",
             tip_bog: "Nota: No se debe tener en cuenta a Bogotá D.C. como departamento.",
             list: data.departamentos
         };
+        dvp.ctx.level='01';
     } else if (rootScope === 'armtrp') {
         context = {
-            treeline:'areasmetrop',
+            treeline: 'areasmetrop',
             upperTip: "Códigos por área metropolitana",
             list: data.areasmetrop
         };
+        dvp.ctx.level='02';
     } else if (rootScope === 'dstrt') {
         context = {
-            treeline:'distritos',
+            treeline: 'distritos',
             upperTip: "Códigos por distritos",
             list: data.distritos
         };
+        dvp.ctx.level='03';
     }
+    dvp.ctx.root01 = 'none';
+    dvp.ctx.root02 = 'none';
     $('body').html(this.templates.level01(context));
+    console.log('dvp context',{cts:dvp.ctx});
     $('li.item-li').addClass(rootScope + 's-li');
     $('body').on(dvp.toggleClickEvent(), 'li.' + rootScope + 's-li a.itm-nom', function (e) {
         e.preventDefault();
@@ -144,10 +165,12 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
         mpios = $.grep(data.municipios, function (item, index) {
             return item[context.scope] === context.code;
         });
+        dvp.ctx.level='04';
     } else if (hash === 'cpobs') {
         cpoblds = $.grep(data.cpoblados, function (item, index) {
             return item['mpio'] === context.mpio;
         });
+        dvp.ctx.level='05';
     }
     var scope_name = "";
     var scope_field = "";
@@ -175,9 +198,12 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
             if (context.scope !== 'depto') {
                 delete inputcxt.level01_cod;
             }
+            dvp.ctx.root01 = scope_field + '/' + context.code;
+            dvp.ctx.root02 = 'none';
             if (hash === 'mpios') {
                 inputcxt['treeline'] = scope_field + ',' + context.scope;
                 $('body').html(this.templates.level02(inputcxt));
+                dvp.ctx.level='04';
                 $('li.item-li').addClass('mpios-li').each(function (index) {
                     var odd = index % 2 === 0;
                     $(this).addClass(odd ? 'mpios-odd-li' : 'mpios-even-li');
@@ -196,8 +222,10 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
                     inputcxt['level02_nom'] = level02_itm[0].nom;
                     inputcxt['level02_cod'] = level02_itm[0].cod;
                     inputcxt['list'] = cpoblds;
-                    inputcxt['treeline'] = scope_field+','+context.scope+',mpio';
+                    inputcxt['treeline'] = scope_field + ',' + context.scope + ',mpio';
+                    dvp.ctx.root02 = '' + level02_itm[0].cod;
                     $('body').html(this.templates.level03(inputcxt));
+                    dvp.ctx.level='05';
                 }
                 $('li.item-li').addClass('cpobs-li').each(function (index) {
                     var odd = index % 2 === 0;
@@ -206,6 +234,7 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
             }
         }
     }
+    console.log('dvp context',{cts:dvp.ctx});
 };
 dvp.prepareAboutListingView = function () {
     var context = {
@@ -248,9 +277,9 @@ dvp.prepareContactInfoView = function () {
         email: "contacto@dane.gov.co",
         tip01: "Para nosotros es importante conocer sus comentarios y sugerencias.",
         tip02: "Cualquier comentario o inquietud en la información de la Codificación de la  División político-administrativa favor enviarla al DANE - Dirección de Geoestadística.",
-        contactName:"Ingeniera Olga Marina López Salinas.",
-        contactPhone:"(571) 5978340",
-        contactEmail:"omlopezs@dane.gov.co"
+        contactName: "Ingeniera Olga Marina López Salinas.",
+        contactPhone: "(571) 5978340",
+        contactEmail: "omlopezs@dane.gov.co"
     };
     $('body').html(this.templates.contact(context));
 };
@@ -263,9 +292,11 @@ dvp.prepareInformationForXlsSaving = function () {
         }
     });
     if (codes.length > 0) {
+        dvp.ctx.items = codes.join(';');
+        console.log('dvp context',{cts:dvp.ctx});
         if (dvp.isOffline() === true) {
             dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
-        }else {
+        } else {
             dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');
         }
     }
@@ -286,14 +317,15 @@ dvp.prepareAboutEvolutionView = function () {
     $('body').on(dvp.toggleClickEvent(), 'a.evolution-link', function (e) {
         e.preventDefault();
         var attrLink = $(this).attr('href') || 'none';
-        if(attrLink !== 'none'){
-            window.open(attrLink,'_system');
+        if (attrLink !== 'none') {
+            window.open(attrLink, '_system');
         }
     });
 };
 dvp.prepareAboutGlossaryView = function () {
     $('body').html(dvp.templates.texts(dvpGlossaryContext));
-};dvp.prepareMappingView = function (btn) {
+};
+dvp.prepareMappingView = function (btn) {
     if (dvp.isOffline() === true) {
         dvp.showAlert('No hay conexión a internet.', 'Cargar mapa');
     } else {
@@ -306,28 +338,28 @@ dvp.prepareAboutGlossaryView = function () {
                 itm[0] = $.grep(data[treelevel[0]], function (item, index) {
                     return item['cod'] === cod;
                 })[0];
-            }else if (treelevel.length === 2) {
+            } else if (treelevel.length === 2) {
                 var mpio_itm = $.grep(data.municipios, function (item, index) {
                     return item['cod'] === cod;
                 });
-                if(mpio_itm!==null && mpio_itm.length>0){
+                if (mpio_itm !== null && mpio_itm.length > 0) {
                     itm[1] = mpio_itm[0];
                     var rootCode = mpio_itm[0][treelevel[1]];
                     itm[0] = $.grep(data[treelevel[0]], function (item, index) {
                         return item['cod'] === rootCode;
                     })[0];
                 }
-            }else if (treelevel.length === 3) {
+            } else if (treelevel.length === 3) {
                 var cpob_itm = $.grep(data.cpoblados, function (item, index) {
                     return item['cod'] === cod;
                 });
-                if(cpob_itm!==null && cpob_itm.length>0){
+                if (cpob_itm !== null && cpob_itm.length > 0) {
                     itm[2] = cpob_itm[0];
                     var mpioCode = cpob_itm[0][treelevel[2]];
-                    var mpio_itm= $.grep(data.municipios, function (item, index) {
+                    var mpio_itm = $.grep(data.municipios, function (item, index) {
                         return item['cod'] === mpioCode;
                     });
-                    if(mpio_itm!==null && mpio_itm.length>0){
+                    if (mpio_itm !== null && mpio_itm.length > 0) {
                         itm[1] = mpio_itm[0];
                         var rootCode = mpio_itm[0][treelevel[1]];
                         itm[0] = $.grep(data[treelevel[0]], function (item, index) {
@@ -337,15 +369,15 @@ dvp.prepareAboutGlossaryView = function () {
                 }
             }
             var mapContext = {};
-            if(itm[0]['cod']){
+            if (itm[0]['cod']) {
                 mapContext['level01_cod'] = itm[0]['cod'];
             }
             mapContext['level01_nom'] = itm[0]['nom'];
-            if(itm[1]){
+            if (itm[1]) {
                 mapContext['level01_cod'] = itm[1]['com'];
                 mapContext['level02_nom'] = itm[1]['nom'];
             }
-            if(itm[2]){
+            if (itm[2]) {
                 mapContext['level03_cod'] = itm[2]['com'];
                 mapContext['level03_nom'] = itm[2]['nom'];
             }
