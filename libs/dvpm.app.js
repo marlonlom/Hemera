@@ -26,7 +26,7 @@ dvp.isOffline = function () {
     return connectionType !== null && (connectionType == Connection.NONE || connectionType == Connection.UNKNOWN);
 };
 dvp.toggleClickEvent = function () {
-    return $.device.mobile ? 'touchend' : 'click';
+    return $.device.mobile ? 'singleTap' : 'click';
 };
 dvp.showAlert = function (message, title) {
     if (navigator.notification) {
@@ -110,7 +110,7 @@ dvp.changeView = function (hash, context) {
     }).on(dvp.toggleClickEvent(), 'img.back-prev-icon', function (e) {
         e.preventDefault();
         var prev_page = $('#prev-page').val() || 'none';
-        if(prev_page==='home'){
+        if (prev_page === 'home') {
             dvp.atHome = true;
         dvp.prepareMainView();
         }else{
