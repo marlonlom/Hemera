@@ -368,13 +368,14 @@ dvp.prepareMappingView = function (btn) {
                     }
                 }
             }
+            dvp.showAlert('datos: treelevel: '+treelevel.length, 'Cargar mapa');
             var mapContext = {};
             if (itm[0]['cod']) {
                 mapContext['level01_cod'] = itm[0]['cod'];
             }
             mapContext['level01_nom'] = itm[0]['nom'];
             if (itm[1]) {
-                mapContext['level01_cod'] = itm[1]['com'];
+                mapContext['level02_cod'] = itm[1]['com'];
                 mapContext['level02_nom'] = itm[1]['nom'];
             }
             if (itm[2]) {
