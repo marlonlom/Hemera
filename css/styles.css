@@ -152,10 +152,10 @@ b.contact-header {
     padding-right: 5px;
     padding-bottom: 10px;
 }
-.contact-button-bar a{
+.contact-button-bar a {
     margin:5px;
     text-decoration:none;
-} 
+}
 .contact-button-bar img {
     -webkit-border-radius: 5px;
     -moz-border-radius: 5px;
@@ -212,4 +212,22 @@ span.data-treeline {
 }
 #footer div.footer-container .footer-btn img {
     margin:2px;
+}
+div.map-title {
+    width:99%;
+    padding-bottom:2px;
+    border-bottom:1px solid #333333;
+}
+div.map-title span {
+    display:block;
+    padding-left:5px;
+    padding-right:5px;
+}
+div.map-wrapper {
+    width:99%;
+}
+#map-canvas {
+    margin: 0;
+    padding: 0;
+    height: 100%;
 }

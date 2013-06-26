@@ -148,8 +148,8 @@ dvp.prepareRootGeographiesMainView = function (rootScope) {
     dvp.ctx.root02 = 'none';
     $('body').html(this.templates.level01(context));
     $('li.item-li').addClass(rootScope + 's-li');
-    if( rootScope!=='depto'){
-        $('vmap-icon').hide();
+    if (rootScope !== 'depto') {
+        $('.vmap-icon').remove();
     }
     $('body').on(dvp.toggleClickEvent(), 'li.' + rootScope + 's-li a.itm-nom', function (e) {
         e.preventDefault();
@@ -369,21 +369,41 @@ dvp.prepareMappingView = function (btn) {
                     }
                 }
             }
-            dvp.showAlert('datos: treelevel: '+treelevel.length, 'Cargar mapa');
             var mapContext = {};
+            if(treelevel[0] === 'departamentos'){
+                mapContext['level01_depto'] = true;
+            }
             if (itm[0]['cod']) {
                 mapContext['level01_cod'] = itm[0]['cod'];
+                mapContext['map_code'] = itm[0]['cod'];
             }
             mapContext['level01_nom'] = itm[0]['nom'];
             if (itm[1]) {
-                mapContext['level02_cod'] = itm[1]['com'];
+                mapContext['level02_cod'] = itm[1]['cod'];
                 mapContext['level02_nom'] = itm[1]['nom'];
+                mapContext['map_code'] = itm[1]['cod'];
             }
             if (itm[2]) {
-                mapContext['level03_cod'] = itm[2]['com'];
+                mapContext['level03_cod'] = itm[2]['cod'];
                 mapContext['level03_nom'] = itm[2]['nom'];
+                mapContext['map_code'] = itm[2]['cod'];
             }
             $('body').html(dvp.templates.mapping(mapContext));
+            dvp.prepareMap();
         }
+    }
+};
+dvp.prepareMap = function (mapContext) {
+    if (mapContext) {
+        var mapConfig = $.grep(mapdata, function (item, index) {
+            return item['cod'] === mapContext['map_code'];
+        })[0];
+        var mapOptions = {
+            center: new google.maps.LatLng(mapConfig['centerLongitude'], mapConfig['centerLatitude']),
+            zoom: 8,
+            mapTypeId: google.maps.MapTypeId.ROADMAP
+        };
+        var map = new google.maps.Map(document.getElementById("map-canvas"),
+            mapOptions);
     }
 };
