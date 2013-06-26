@@ -147,8 +147,10 @@ dvp.prepareRootGeographiesMainView = function (rootScope) {
     dvp.ctx.root01 = 'none';
     dvp.ctx.root02 = 'none';
     $('body').html(this.templates.level01(context));
-    console.log('dvp context',{cts:dvp.ctx});
     $('li.item-li').addClass(rootScope + 's-li');
+    if( rootScope!=='depto'){
+        $('vmap-icon').hide();
+    }
     $('body').on(dvp.toggleClickEvent(), 'li.' + rootScope + 's-li a.itm-nom', function (e) {
         e.preventDefault();
         var code = $(this).attr('data-itm-cod') || 'nah';
@@ -234,7 +236,6 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
             }
         }
     }
-    console.log('dvp context',{cts:dvp.ctx});
 };
 dvp.prepareAboutListingView = function () {
     var context = {
