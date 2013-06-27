@@ -113,6 +113,12 @@
             <div id="wrapper">
                 <div id="scroller">
                     <ul class='home-list'>
+                        <li class="menu-li home-li-tip search-box">
+                            <div class="search-box-wrapper">
+                                <input type="text" id="search-text" name="search-text" placeholder="Buscar un lugar">
+                                <button id="search-btn">&nbsp;</button>
+                            </div>
+                        </li>
                         <li class="menu-li home-li-tip">{{upperTip}}</li>
                         {{#each menu}}
                         <li class="menu-li home-menu-item" data-home-link="{{hash}}">{{label}}</li>
@@ -241,7 +247,7 @@
                         </li>
                         {{#each list}}
                         <li class="menu-li item-li">
-                            <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
+                            <a href="#" class="itm-nom itm-{{clase}}" data-itm-cod="{{cod}}">{{nom}}</a>
                             <img src="img/map.png" data-treeline="{{treeline}}" data-itm-cod="{{cod}}" class="vmap-icon" />
                             <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
                         </li>

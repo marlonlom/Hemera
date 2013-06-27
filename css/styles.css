@@ -134,6 +134,9 @@ li.mpios-odd-li, li.cpobs-odd-li {
 li.mpios-even-li, li.cpobs-even-li {
     background:#ffffff;
 }
+li.cpobs-li a.itm-CM {
+    color:#AA1C4A;
+}
 b.contact-header {
     padding:5px 0px;
     width:100%;
@@ -231,4 +234,22 @@ div#map-canvas {
     width:100%;
     padding: 0;
     height: 100%;
+}
+div.search-box-wrapper {
+    width:95%;
+    border: 1px solid #333333;
+    border-radius: 10px 10px 10px 10px;
+    padding: 5px;
+}
+div.search-box-wrapper input#search-text{
+    border: 0 none;
+    height: 30px;
+    width: 80%;    
+}
+div.search-box-wrapper button {
+    background: url("../img/icon-search.png") no-repeat scroll center center transparent;
+    border: 0 none;
+    float:right;
+    height: 30px;
+    width: 30px;
 }

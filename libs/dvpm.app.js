@@ -402,8 +402,7 @@ dvp.prepareMap = function (mapContext) {
         if (mapConfig !== undefined) {
             var mapOptions = {
                 center: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']),
-                zoom: 12,
-                draggable: false,
+                zoom: 8,
                 disableDoubleClickZoom: false,
                 zoomControl: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -427,6 +426,7 @@ dvp.prepareMap = function (mapContext) {
             bounds.extend(new google.maps.LatLng(mapConfig['swLatitude'], mapConfig['swLongitude']));
             bounds.extend(new google.maps.LatLng(mapConfig['neLatitude'], mapConfig['neLongitude']));
             map.fitBounds(bounds);
+            
             var mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
                 mapId: '03774390725342724344-05899590172284233324-4',
                 layerKey: 'layer_00001',
