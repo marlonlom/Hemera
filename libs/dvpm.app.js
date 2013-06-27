@@ -21,7 +21,7 @@ dvp.initialize = function () {
     this.templates.texts = Handlebars.compile($("#hbt-about-texts").html());
     this.templates.evolution = Handlebars.compile($("#hbt-about-evolution").html());
     this.templates.mapping = Handlebars.compile($("#hbt-mapping").html());
-    this.templates.searchs = Handlebars.compile($("#hbt-mapping").html());
+    this.templates.searchs = Handlebars.compile($("#hbt-search-results").html());
 };
 dvp.isOffline = function () {
     var connectionType = navigator.connection ? navigator.connection.type : null;
@@ -47,21 +47,7 @@ dvp.handleSearchBox = function () {
     $('body').on(dvp.toggleClickEvent(), 'button#search-btn', function (e) {
         e.preventDefault();
         var searchtext = $('input#search-text').val() || 'nah';
-        if (searchtext !== 'nah') {
-            var resultList = [];
-            resultList.concat($.grep(data['departamentos'], function (item, index) {
-                return item['nom'].search(searchtext) >= 0;
-            }));
-            resultList.concat($.grep(data['municipios'], function (item, index) {
-                return item['nom'].search(searchtext) >= 0;
-            }));
-            resultList.concat($.grep(data['cpoblados'], function (item, index) {
-                return item['nom'].search(searchtext) >= 0;
-            }));
-            dvp.showAlert('texto: ' + searchtext + '\ntotal: ' + resultList.length, 'Buscar');
-        }else{
-            dvp.showAlert('Ingrese un texto.','Buscar');
-        }
+        dvp.changeView('search', searchtext);
     });
 };
 dvp.prepareMainView = function () {
@@ -112,6 +98,8 @@ dvp.changeView = function (hash, context) {
         dvp.prepareAboutListingView();
     } else if (hash === 'contact') {
         dvp.prepareContactInfoView();
+    } else if (hash === 'search') {
+        dvp.prepareSearchsView(context);
     }
 
     if (dvp.iscroll !== null) {
@@ -142,6 +130,50 @@ dvp.changeView = function (hash, context) {
         }
     });
     dvp.handleDANEWebpageAccess();
+};
+dvp.prepareSearchsView = function (searchtext) {
+    if (searchtext !== 'nah') {
+        var resultList = [];
+        var deptosFound = $.grep(data['departamentos'], function (item, index) {
+            return item['nom'].toLowerCase().search(searchtext) >= 0;
+        });
+        resultList = resultList.concat(deptosFound);
+        var mpiosFound = $.grep(data['municipios'], function (item, index) {
+            return item['nom'].toLowerCase().search(searchtext) >= 0;
+        });
+        resultList = resultList.concat(mpiosFound);
+        var cpobsFound = $.grep(data['cpoblados'], function (item, index) {
+            return item['nom'].toLowerCase().search(searchtext) >= 0;
+        });
+        resultList = resultList.concat(cpobsFound);
+        $.each(resultList, function (index, item) {
+            var cod = item['cod'];
+            if (cod.length === 2) {
+                item['geography'] = 'departamentos';
+                item['treeline'] = 'departamentos';
+            } else if (cod.length === 5) {
+                item['geography'] = 'municipios';
+                item['treeline'] = 'departamentos,depto';
+            } else if (cod.length === 8) {
+                item['geography'] = 'cpoblados';
+                item['treeline'] = 'departamentos,depto,mpio';
+            }
+        });
+
+        var context = {
+            upperTip: "Resultados de la búsqueda",
+            list: resultList
+        };
+        $('body').html(dvp.templates.searchs(context));
+
+        $('li.item-li').addClass('mpios-li').each(function (index) {
+            var odd = index % 2 === 0;
+            $(this).addClass(odd ? 'mpios-odd-li' : 'mpios-even-li');
+        });
+        
+    } else {
+        dvp.showAlert('Ingrese un texto.', 'Buscar');
+    }
 };
 dvp.prepareRootGeographiesMainView = function (rootScope) {
     var context = {};
@@ -355,7 +387,7 @@ dvp.prepareMappingView = function (btn) {
         dvp.showAlert('No hay conexión a internet.', 'Cargar mapa');
     } else {
         var cod = btn.attr('data-itm-cod') || 'nah';
-        var tree = $('span.data-treeline').html() || 'nah';
+        var tree = (btn.attr('data-treeline') ? btn.attr('data-treeline') : $('span.data-treeline').html()) || 'nah';
         var itm = [];
         if (cod !== 'nah') {
             var treelevel = tree.split(',');

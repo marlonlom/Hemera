@@ -138,13 +138,8 @@
             </header>
             <div id="wrapper">
                 <div id="scroller">
+                    <input type="hidden" id="prev-page" name="prev-page" value="home">
                     <ul class='home-list'>
-                        <li class="menu-li home-li-tip search-box">
-                            <div class="search-box-wrapper">
-                                <input type="text" id="search-text" name="search-text" placeholder="Buscar un lugar">
-                                <button id="search-btn">&nbsp;</button>
-                            </div>
-                        </li>
                         <li class="menu-li home-li-tip">
                             <b>{{upperTip}}</b>
                             <div class="legend-results">
@@ -154,13 +149,13 @@
                                 </div>
                                 <div class="legend-row" style="clear:both;">
                                     <span class="legend-detail"><img src="img/icon-legend-01.png">&nbsp;Centros poblados</span>
-                                    <span class="legend-detail"><img src="img/icon-legend-01.png">&nbsp;Cabeceras municipales</span>
+                                    <span class="legend-detail"><img src="img/icon-legend-02.png">&nbsp;Cabeceras municipales</span>
                                 </div>
                             </div>
                         </li>
                         {{#each list}}
-                        <li class="menu-li item-li">
-                            <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
+                        <li class="menu-li item-li search-li">
+                            <a href="#" class="itm-nom itm-{{geography}} {{#if clase}}itm-{{clase}}{{/if}}" data-itm-cod="{{cod}}">{{nom}}</a>
                             <img src="img/map.png" data-treeline="{{treeline}}" data-itm-cod="{{cod}}" class="vmap-icon" />
                             <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
                         </li>
@@ -169,7 +164,16 @@
                 </div>
             </div>
             <footer id="footer">
-                <div class="footer-container"></div>
+                <div class="footer-container">
+                    <div class="footer-btn">
+                        <img src="img/icon-home.png" class="back-home-icon">
+                        Inicio
+                    </div>
+                    <div class="footer-btn">
+                        <img src="img/icon-back.png" class="back-prev-icon">
+                        Anterior
+                    </div>
+                </div>
             </footer>
         </script>
         <script id="hbt-level01" type="text/x-handlebars-template">
@@ -274,6 +278,8 @@
             <div id="wrapper">
                 <div id="scroller">
                     <input type="hidden" id="prev-page" name="prev-page" value="mpios">
+                    <input type="hidden" id="prev-cod" name="prev-cod" value="{{level01_cod}}">
+                    <input type="hidden" id="prev-treeline" name="prev-treeline" value="{{treeline}}">
                     <ul class='deptos-list'>
                         <li class="menu-li home-li-tip inner-li cpobs-li-tip">
                             <div class="cpob-li-title">

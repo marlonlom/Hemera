@@ -241,10 +241,10 @@ div.search-box-wrapper {
     border-radius: 10px 10px 10px 10px;
     padding: 5px;
 }
-div.search-box-wrapper input#search-text{
+div.search-box-wrapper input#search-text {
     border: 0 none;
     height: 30px;
-    width: 80%;    
+    width: 80%;
 }
 div.search-box-wrapper button {
     background: url("../img/icon-search.png") no-repeat scroll center center transparent;
@@ -252,4 +252,16 @@ div.search-box-wrapper button {
     float:right;
     height: 30px;
     width: 30px;
+}
+div.legend-results {
+    font-size:10px;
+}
+li.search-li a.itm-CM {
+    color:#AA1C4A;
+}
+li.search-li a.itm-departamentos{
+    color:#2A3895;
+}
+li.search-li a.itm-municipios{
+    color:#CD5C23;
 }
