@@ -7,6 +7,7 @@ var dvp = {
         level: '',
         items: ''
     },
+    googleMapsState: "",
     iscroll: null
 };
 dvp.initialize = function () {
@@ -389,7 +390,7 @@ dvp.prepareMappingView = function (btn) {
                 mapContext['map_code'] = itm[2]['cod'];
             }
             $('body').html(dvp.templates.mapping(mapContext));
-            dvp.prepareMap();
+            dvp.prepareMap(mapContext);
         }
     }
 };
@@ -403,6 +404,13 @@ dvp.prepareMap = function (mapContext) {
             zoom: 8,
             mapTypeId: google.maps.MapTypeId.ROADMAP
         };
+        var availabilityErrorMessage = dvp.checkGoogleMapsAvailability();
+
+        if (availabilityErrorMessage != "") {
+            dvp.showAlert(availabilityErrorMessage,'Cargar mapa');
+            return;
+        }
+
         var map = new google.maps.Map(document.getElementById("map-canvas"),
             mapOptions);
     }

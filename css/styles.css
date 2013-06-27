@@ -224,9 +224,9 @@ div.map-title span {
     padding-right:5px;
 }
 div.map-wrapper {
-    width:99%;
+    width:100%;
 }
-#map-canvas {
+div#map-canvas {
     margin: 0;
     padding: 0;
     height: 100%;
