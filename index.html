@@ -58,7 +58,7 @@
             function loadGoogleMaps() { 
                 dvp.googleMapsState = "loading"; 
                 var script = document.createElement("script"); 
-                script.src = "http://maps.google.com/maps/api/js?v=3.7&sensor=true&callback=googleMapsReady"; 
+                script.src = "http://maps.google.com/maps/api/js?v=3.7&sensor=true&libraries=visualization&callback=googleMapsReady"; 
                 script.type = "text/javascript"; 
                 script.addEventListener("error", function(e) { 
                     dvp.googleMapsState = "error"; 
