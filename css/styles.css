@@ -3,6 +3,11 @@ body, ul, li {
     margin:0;
     border:0;
 }
+html, body, #map-canvas {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
 body {
     font-size:12px;
     -webkit-user-select:none;
@@ -228,6 +233,7 @@ div.map-wrapper {
 }
 div#map-canvas {
     margin: 0;
+    width:100%;
     padding: 0;
     height: 100%;
 }
