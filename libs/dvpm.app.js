@@ -49,7 +49,16 @@ dvp.handleSearchBox = function () {
         var searchtext = $('input#search-text').val() || 'nah';
         if (searchtext !== 'nah') {
             var resultList = [];
-            dvp.showAlert('texto: ' + searchtext, 'Buscar');
+            resultList.concat($.grep(data['departamentos'], function (item, index) {
+                return item['nom'].search(searchtext) >= 0;
+            }));
+            resultList.concat($.grep(data['municipios'], function (item, index) {
+                return item['nom'].search(searchtext) >= 0;
+            }));
+            resultList.concat($.grep(data['cpoblados'], function (item, index) {
+                return item['nom'].search(searchtext) >= 0;
+            }));
+            dvp.showAlert('texto: ' + searchtext + '\ntotal: ' + resultList.length, 'Buscar');
         }else{
             dvp.showAlert('Ingrese un texto.','Buscar');
         }
