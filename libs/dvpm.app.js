@@ -390,7 +390,6 @@ dvp.prepareMappingView = function (btn) {
                 mapContext['map_code'] = itm[2]['cod'];
             }
             $('body').html(dvp.templates.mapping(mapContext));
-            $('#map-canvas').css('height', itm[1] ? '91%' : (itm[2] ? '87%' : '95%'));
             dvp.prepareMap(mapContext);
         }
     }
@@ -402,8 +401,9 @@ dvp.prepareMap = function (mapContext) {
         })[0];
         if (mapConfig !== undefined) {
             var mapOptions = {
-                center: new google.maps.LatLng(mapConfig['centerLongitude'], mapConfig['centerLatitude']),
-                zoom: 8,
+                center: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']),
+                zoom: 12,
+                zoomControl: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
             var availabilityErrorMessage = dvp.checkGoogleMapsAvailability();
@@ -415,10 +415,16 @@ dvp.prepareMap = function (mapContext) {
 
             var map = new google.maps.Map(document.getElementById("map-canvas"),
                 mapOptions);
+            
             var marker = new google.maps.Marker({
                 map: map,
                 position: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude'])
              });
+            
+            var bounds = new google.maps.LatLngBounds();
+            bounds.extend(new google.maps.LatLng(mapConfig['swLatitude'], mapConfig['swLongitude']));
+            bounds.extend(new google.maps.LatLng(mapConfig['neLatitude'], mapConfig['neLongitude']));
+            map.fitBounds(bounds);
         }else{
             dvp.showAlert('No hay datos para mostrar en el mapa.', 'Cargar mapa');
         }
