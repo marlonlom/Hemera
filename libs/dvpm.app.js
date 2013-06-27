@@ -390,6 +390,7 @@ dvp.prepareMappingView = function (btn) {
                 mapContext['map_code'] = itm[2]['cod'];
             }
             $('body').html(dvp.templates.mapping(mapContext));
+            $('#map-canvas').css('height', itm[1] ? '91%' : (itm[2] ? '87%' : '95%'));
             dvp.prepareMap(mapContext);
         }
     }
@@ -399,19 +400,23 @@ dvp.prepareMap = function (mapContext) {
         var mapConfig = $.grep(mapdata, function (item, index) {
             return item['cod'] === mapContext['map_code'];
         })[0];
-        var mapOptions = {
-            center: new google.maps.LatLng(mapConfig['centerLongitude'], mapConfig['centerLatitude']),
-            zoom: 8,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
-        };
-        var availabilityErrorMessage = dvp.checkGoogleMapsAvailability();
+        if (mapConfig !== undefined) {
+            var mapOptions = {
+                center: new google.maps.LatLng(mapConfig['centerLongitude'], mapConfig['centerLatitude']),
+                zoom: 8,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            };
+            var availabilityErrorMessage = dvp.checkGoogleMapsAvailability();
 
-        if (availabilityErrorMessage != "") {
-            dvp.showAlert(availabilityErrorMessage,'Cargar mapa');
-            return;
+            if (availabilityErrorMessage != "") {
+                dvp.showAlert(availabilityErrorMessage, 'Cargar mapa');
+                return;
+            }
+
+            var map = new google.maps.Map(document.getElementById("map-canvas"),
+                mapOptions);
+        }else{
+            dvp.showAlert('No hay datos para mostrar en el mapa.', 'Cargar mapa');
         }
-
-        var map = new google.maps.Map(document.getElementById("map-canvas"),
-            mapOptions);
     }
 };
