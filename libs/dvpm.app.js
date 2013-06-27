@@ -21,6 +21,7 @@ dvp.initialize = function () {
     this.templates.texts = Handlebars.compile($("#hbt-about-texts").html());
     this.templates.evolution = Handlebars.compile($("#hbt-about-evolution").html());
     this.templates.mapping = Handlebars.compile($("#hbt-mapping").html());
+    this.templates.searchs = Handlebars.compile($("#hbt-mapping").html());
 };
 dvp.isOffline = function () {
     var connectionType = navigator.connection ? navigator.connection.type : null;
@@ -40,6 +41,18 @@ dvp.handleDANEWebpageAccess = function () {
     $('body').on(dvp.toggleClickEvent(), '.danelogo1', function (e) {
         e.preventDefault();
         window.open('http://www.dane.gov.co', '_system');
+    });
+};
+dvp.handleSearchBox = function () {
+    $('body').on(dvp.toggleClickEvent(), 'button#search-btn', function (e) {
+        e.preventDefault();
+        var searchtext = $('input#search-text').val() || 'nah';
+        if (searchtext !== 'nah') {
+            var resultList = [];
+            dvp.showAlert('texto: ' + searchtext, 'Buscar');
+        }else{
+            dvp.showAlert('Ingrese un texto.','Buscar');
+        }
     });
 };
 dvp.prepareMainView = function () {
@@ -73,6 +86,7 @@ dvp.prepareMainView = function () {
         dvp.changeView(hash);
     });
     dvp.handleDANEWebpageAccess();
+    dvp.handleSearchBox();
 };
 dvp.changeView = function (hash, context) {
     $('body').off(dvp.toggleClickEvent());

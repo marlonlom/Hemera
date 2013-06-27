@@ -130,6 +130,48 @@
                 <div class="footer-container"></div>
             </footer>
         </script>
+        <script id="hbt-search-results" type="text/x-handlebars-template">
+            <header id="header">
+                <img src="img/dane.header.01.png" class="danelogo1">
+                <h5 class="title">DIVIPOLA</h5>
+                <img src="img/dane.header.02.png" class="danelogo2">
+            </header>
+            <div id="wrapper">
+                <div id="scroller">
+                    <ul class='home-list'>
+                        <li class="menu-li home-li-tip search-box">
+                            <div class="search-box-wrapper">
+                                <input type="text" id="search-text" name="search-text" placeholder="Buscar un lugar">
+                                <button id="search-btn">&nbsp;</button>
+                            </div>
+                        </li>
+                        <li class="menu-li home-li-tip">
+                            <b>{{upperTip}}</b>
+                            <div class="legend-results">
+                                <div class="legend-row" style="clear:both;">
+                                    <span class="legend-detail"><img src="img/icon-legend-04.png">&nbsp;Departamentos</span>
+                                    <span class="legend-detail"><img src="img/icon-legend-03.png">&nbsp;&Aacute;reas no municipalizadas</span>
+                                </div>
+                                <div class="legend-row" style="clear:both;">
+                                    <span class="legend-detail"><img src="img/icon-legend-01.png">&nbsp;Centros poblados</span>
+                                    <span class="legend-detail"><img src="img/icon-legend-01.png">&nbsp;Cabeceras municipales</span>
+                                </div>
+                            </div>
+                        </li>
+                        {{#each list}}
+                        <li class="menu-li item-li">
+                            <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
+                            <img src="img/map.png" data-treeline="{{treeline}}" data-itm-cod="{{cod}}" class="vmap-icon" />
+                            <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
+                        </li>
+                        {{/each}}
+                    </ul>
+                </div>
+            </div>
+            <footer id="footer">
+                <div class="footer-container"></div>
+            </footer>
+        </script>
         <script id="hbt-level01" type="text/x-handlebars-template">
             <header id="header">
                 <img src="img/dane.header.01.png" class="danelogo1">
