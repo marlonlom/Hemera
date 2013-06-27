@@ -11,7 +11,6 @@
         <link href=css/styles.css rel=stylesheet>
         <!--scripts-->
         <script type="text/javascript" charset="utf-8" src="phonegap.js"></script>
-        <script type="text/javascript" src="http://maps.googleapis.com/maps/api/js?sensor=false"></script>
         <script type="text/javascript" charset="utf-8" src="libs/zepto.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/zepto.detect.min.js"></script>
         <script type="text/javascript" charset="utf-8" src="libs/zepto.touch.js"></script>
@@ -27,28 +26,10 @@
             function onBodyLoad() {
                 document.addEventListener("deviceready", onDeviceReady, false);
             }
-            function fail(evt) {
-                console.log(evt.target.error.code); 
-            }
-            function gotFS(fileSystem) {
-                dvp.rootFS = fileSystem.root;    
-                dvp.showAlert('root: '+dvp.rootFS.fullPath,'filesystem');
-            }
-            function obtainRootFileSystem() {
-                window.requestFileSystem  = window.requestFileSystem || window.webkitRequestFileSystem;
-                window.requestFileSystem(LocalFileSystem.TEMPORARY, 0, gotFS, fail);
-                function onSuccess(fileEntry) {
-                    console.log(fileEntry.name);
-                    dvp.showAlert('fileEntry: '+fileEntry.name,'fileEntry');
-                }
-                window.resolveLocalFileSystemURI("file:///data/xls/Listado_2008.xls", onSuccess, fail);
-            }
-            
             function onDeviceReady() {
                 if (window.navigator && window.navigator.splashscreen) {
                     setTimeout(function() {
                         window.navigator.splashscreen.hide();
-                        obtainRootFileSystem();
                     }, 1000);
                 }
                 document.addEventListener("backbutton", onBackKeyDown, false);
