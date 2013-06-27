@@ -415,6 +415,10 @@ dvp.prepareMap = function (mapContext) {
 
             var map = new google.maps.Map(document.getElementById("map-canvas"),
                 mapOptions);
+            var marker = new google.maps.Marker({
+                map: map,
+                position: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude'])
+             });
         }else{
             dvp.showAlert('No hay datos para mostrar en el mapa.', 'Cargar mapa');
         }
