@@ -28,7 +28,7 @@ dvp.isOffline = function () {
     return connectionType !== null && (connectionType == Connection.NONE || connectionType == Connection.UNKNOWN);
 };
 dvp.toggleClickEvent = function () {
-    return $.device.mobile ? 'singleTap' : 'click';
+    return $.device.mobile ? 'touchend' : 'click';
 };
 dvp.showAlert = function (message, title) {
     if (navigator.notification) {
@@ -70,6 +70,10 @@ dvp.prepareMainView = function () {
         }
     ];
 
+    if(FastClick){
+        FastClick.attach(document.body);
+    }
+    
     $('body').html(this.templates.home({
         upperTip: "Seleccione por código",
         menu: searchMenu
@@ -83,9 +87,6 @@ dvp.prepareMainView = function () {
     dvp.handleDANEWebpageAccess();
     dvp.handleSearchBox();
     
-    if(FastClick){
-        FastClick.attach(document.body);
-    }
 };
 dvp.changeView = function (hash, context) {
     $('body').off(dvp.toggleClickEvent());
@@ -106,6 +107,10 @@ dvp.changeView = function (hash, context) {
         dvp.prepareSearchsView(context);
     }
 
+    if(FastClick){
+        FastClick.attach(document.body);
+    }
+    
     if (dvp.iscroll !== null) {
         dvp.iscroll.destroy();
         dvp.iscroll = null;
@@ -134,10 +139,6 @@ dvp.changeView = function (hash, context) {
         }
     });
     dvp.handleDANEWebpageAccess();
-    
-    if(FastClick){
-        FastClick.attach(document.body);
-    }
 };
 dvp.prepareSearchsView = function (searchtext) {
     if (searchtext !== 'nah') {
