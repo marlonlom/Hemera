@@ -82,6 +82,10 @@ dvp.prepareMainView = function () {
     });
     dvp.handleDANEWebpageAccess();
     dvp.handleSearchBox();
+    
+    if(FastClick){
+        FastClick.attach(document.body);
+    }
 };
 dvp.changeView = function (hash, context) {
     $('body').off(dvp.toggleClickEvent());
@@ -130,6 +134,10 @@ dvp.changeView = function (hash, context) {
         }
     });
     dvp.handleDANEWebpageAccess();
+    
+    if(FastClick){
+        FastClick.attach(document.body);
+    }
 };
 dvp.prepareSearchsView = function (searchtext) {
     if (searchtext !== 'nah') {
@@ -383,8 +391,10 @@ dvp.prepareAboutGlossaryView = function () {
     $('body').html(dvp.templates.texts(dvpGlossaryContext));
 };
 dvp.prepareMappingView = function (btn) {
-    if (dvp.isOffline() === true) {
-        dvp.showAlert('No hay conexión a internet.', 'Cargar mapa');
+    var availabilityErrorMessage = dvp.checkGoogleMapsAvailability();
+    if (availabilityErrorMessage != "") {
+        dvp.showAlert(availabilityErrorMessage, 'Cargar mapa');
+        return;
     } else {
         var cod = btn.attr('data-itm-cod') || 'nah';
         var tree = (btn.attr('data-treeline') ? btn.attr('data-treeline') : $('span.data-treeline').html()) || 'nah';
@@ -462,12 +472,6 @@ dvp.prepareMap = function (mapContext) {
                 zoomControl: true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
-            var availabilityErrorMessage = dvp.checkGoogleMapsAvailability();
-
-            if (availabilityErrorMessage != "") {
-                dvp.showAlert(availabilityErrorMessage, 'Cargar mapa');
-                return;
-            }
 
             var map = new google.maps.Map(document.getElementById("map-canvas"),
                 mapOptions);
