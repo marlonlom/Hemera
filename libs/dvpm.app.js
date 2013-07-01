@@ -467,9 +467,9 @@ dvp.prepareMap = function (mapContext) {
         if (mapConfig !== undefined) {
             var mapOptions = {
                 center: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']),
-                zoom: 8,
-                disableDoubleClickZoom: false,
+                disableDoubleClickZoom: true,
                 zoomControl: true,
+                draggable : false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
