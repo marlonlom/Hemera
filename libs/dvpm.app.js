@@ -474,7 +474,8 @@ dvp.prepareMap = function (mapContext) {
                 center: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']),
                 disableDoubleClickZoom: true,
                 zoomControl: true,
-                draggable : false,
+                zoom: 8,
+                draggable : true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
@@ -486,9 +487,12 @@ dvp.prepareMap = function (mapContext) {
                 position: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude'])
             });
 
+            google.maps.event.addListener(map, 'bounds_changed', function () {
+                map.setZoom(7);
+            });
+            
             var bounds = new google.maps.LatLngBounds();
-            bounds.extend(new google.maps.LatLng(mapConfig['swLatitude'], mapConfig['swLongitude']));
-            bounds.extend(new google.maps.LatLng(mapConfig['neLatitude'], mapConfig['neLongitude']));
+            bounds.extend(new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']));
             map.fitBounds(bounds);
             
             var mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
@@ -498,6 +502,7 @@ dvp.prepareMap = function (mapContext) {
                 clickable: false,
                 suppressInfoWindows: true
             });
+            
         } else {
             dvp.showAlert('No hay datos para mostrar en el mapa.', 'Cargar mapa');
         }
