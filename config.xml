@@ -43,5 +43,5 @@
     <gap:splash src="splash/android/xhdpi.png" gap:platform="android" gap:density="xhdpi" />
     <!-- Access (Default)-->
     <access origin="*" />
-    <access origin="http://localhost:8080" browserOnly="true" />
+    <access origin="http://127.0.0.1*" browserOnly="true" />
 </widget>
