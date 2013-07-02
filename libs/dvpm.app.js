@@ -29,7 +29,7 @@ dvp.isOffline = function () {
     return connectionType !== null && (connectionType == Connection.NONE || connectionType == Connection.UNKNOWN);
 };
 dvp.toggleClickEvent = function () {
-    return $.device.mobile ? 'touchend' : 'click';
+    return $.device.mobile ? 'touchstart' : 'click';
 };
 dvp.showAlert = function (message, title) {
     if (navigator.notification) {
@@ -364,7 +364,6 @@ dvp.prepareInformationForXlsSaving = function () {
         if (dvp.isOffline() === true) {
             dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
         } else {
-            /*dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');*/
             var params="<input type='hidden' name='items' value='" + dvp.ctx.items + "'/>"+
                 "<input type='hidden' name='level' value='" + dvp.ctx.level + "'/>"+
                 "<input type='hidden' name='root01' value='" + dvp.ctx.root01 + "'/>"+
