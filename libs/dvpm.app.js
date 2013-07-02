@@ -360,7 +360,6 @@ dvp.prepareInformationForXlsSaving = function () {
     });
     if (codes.length > 0) {
         dvp.ctx.items = codes.join(';');
-        console.log('dvp context',{cts:dvp.ctx});
         if (dvp.isOffline() === true) {
             dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
         } else {
@@ -401,7 +400,6 @@ dvp.prepareMappingView = function (btn) {
     var availabilityErrorMessage = dvp.checkGoogleMapsAvailability();
     if (availabilityErrorMessage != "") {
         dvp.showAlert(availabilityErrorMessage, 'Cargar mapa');
-        return;
     } else {
         var cod = btn.attr('data-itm-cod') || 'nah';
         var tree = (btn.attr('data-treeline') ? btn.attr('data-treeline') : $('span.data-treeline').html()) || 'nah';
