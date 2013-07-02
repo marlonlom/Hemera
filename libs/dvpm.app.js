@@ -8,6 +8,7 @@ var dvp = {
         items: ''
     },
     googleMapsState: "",
+    dynamicXlsDownloadUrl: 'http://localhost:8080/divipola-mobile-xls/dxls/',
     iscroll: null
 };
 dvp.initialize = function () {
@@ -363,7 +364,13 @@ dvp.prepareInformationForXlsSaving = function () {
         if (dvp.isOffline() === true) {
             dvp.showAlert('No hay conexión a internet.', 'Guardar XLS');
         } else {
-            dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');
+            /*dvp.showAlert('Códigos preparados para descarga.', 'Guardar XLS');*/
+            var params="<input type='hidden' name='items' value='" + dvp.ctx.items + "'/>"+
+                "<input type='hidden' name='level' value='" + dvp.ctx.level + "'/>"+
+                "<input type='hidden' name='root01' value='" + dvp.ctx.root01 + "'/>"+
+                "<input type='hidden' name='root02' value='" + dvp.ctx.root02 + "'/>";
+            $("<form action='" + dvp.dynamicXlsDownloadUrl + "' method='post' target='_system'>" + params + 
+              "</form>").appendTo("body").submit().remove();
         }
     }
 };
