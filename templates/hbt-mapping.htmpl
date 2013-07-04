@@ -1,0 +1,25 @@
+<header id="header">
+	<img src="img/dane.header.01.png" class="danelogo1">
+	<h5 class="title">DIVIPOLA</h5>
+	<img src="img/dane.header.02.png" class="danelogo2">
+</header>
+<div id="wrapper">
+	<div class="map-title">
+		<span>{{level01_nom}}{{#if level01_depto}}&nbsp;({{level01_cod}}){{/if}}</span>
+		{{#if level02_cod}}
+		<span>{{level02_nom}}&nbsp;({{level02_cod}})</span>
+		{{/if}}
+		{{#if level03_cod}}
+		<span>{{level03_nom}}&nbsp;({{level03_cod}})</span>
+		{{/if}}
+	</div>
+	<div id="map-canvas" style="width: 100%; height: 84%;"></div>
+</div>
+<footer id="footer">
+	<div class="footer-container">
+		<div class="footer-btn back-home-icon">
+			<img src="img/icon-home.png">
+			Inicio
+		</div>
+	</div>
+</footer>

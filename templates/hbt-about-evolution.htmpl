@@ -1,0 +1,32 @@
+<header id="header">
+	<img src="img/dane.header.01.png" class="danelogo1">
+	<h5 class="title">DIVIPOLA</h5>
+	<img src="img/dane.header.02.png" class="danelogo2">
+</header>
+<div id="wrapper">
+	<div id="scroller">
+		<input type="hidden" id="prev-page" name="prev-page" value="about">
+		<h4 class="texts-header">{{upperTip}}</h4>
+		<p class="texts-content">
+			{{#each listing}}
+			   <b>{{title}}</b><br/>
+				{{#each leafs}}
+				<a href="{{url}}" target="_system" class="evolution-link">{{title}}</a><br/>
+				{{/each}}
+				<br/><br/>
+			{{/each}}
+		</p>
+	</div>
+</div>
+<footer id="footer">
+	<div class="footer-container">
+		<div class="footer-btn back-home-icon">
+			<img src="img/icon-home.png">
+			Inicio
+		</div>
+		<div class="footer-btn back-prev-icon">
+			<img src="img/icon-back.png">
+			Anterior
+		</div>
+	</div>
+</footer>

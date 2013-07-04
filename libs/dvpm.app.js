@@ -108,17 +108,17 @@ dvp.changeView = function (hash, context) {
         dvp.prepareSearchsView(context);
     }
 
-    if(FastClick){
+    if (FastClick) {
         FastClick.attach(document.body);
     }
-    
+
     if (dvp.iscroll !== null) {
         dvp.iscroll.destroy();
         dvp.iscroll = null;
     }
     dvp.iscroll = new iScroll("wrapper");
 
-    $('body').on(dvp.toggleClickEvent(), 'img.back-home-icon', function (e) {
+    $('body').on(dvp.toggleClickEvent(), '.back-home-icon', function (e) {
         e.preventDefault();
         dvp.atHome = true;
         dvp.prepareMainView();
@@ -126,17 +126,33 @@ dvp.changeView = function (hash, context) {
         e.preventDefault();
         var btn = $(this);
         dvp.prepareMappingView(btn);
-    }).on(dvp.toggleClickEvent(), 'img.save-xls-icon', function (e) {
+    }).on(dvp.toggleClickEvent(), '.save-xls-icon', function (e) {
         e.preventDefault();
         dvp.prepareInformationForXlsSaving();
-    }).on(dvp.toggleClickEvent(), 'img.back-prev-icon', function (e) {
+    }).on(dvp.toggleClickEvent(), '.back-prev-icon', function (e) {
         e.preventDefault();
         var prev_page = $('#prev-page').val() || 'none';
         if (prev_page === 'home') {
             dvp.atHome = true;
-        dvp.prepareMainView();
-        }else{
-            dvp.changeView(prev_page);
+            dvp.prepareMainView();
+        } else {
+            if (prev_page === 'level02') {
+                var prevCod = $('#prev-page-cod').val() || 'nah';
+                if (prevCod !== 'nah') {
+                    var treeline = $('.data-treeline').text();
+                    var hash = treeline.split(',');
+                    dvp.changeView('mpios', {
+                        code: prevCod,
+                        scope: hash[1]
+                    });
+                }
+            } else if (prev_page === 'level01') {
+                var treeline = $('.data-treeline').text();
+                var hash = treeline.split(',');
+                dvp.changeView(hash[1]+'s');
+            }else {
+                dvp.changeView(prev_page);
+            }            
         }
     });
     dvp.handleDANEWebpageAccess();
@@ -261,6 +277,7 @@ dvp.prepareInnerGeographiesMainView = function (hash, context) {
                 upperTip: scope_name,
                 level01_nom: level01_itm[0].nom,
                 level01_cod: level01_itm[0].cod,
+                level01_key: level01_itm[0].cod,
                 list: mpios
             };
             if (context.scope !== 'depto') {
@@ -473,9 +490,10 @@ dvp.prepareMap = function (mapContext) {
             var mapOptions = {
                 center: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']),
                 disableDoubleClickZoom: true,
-                zoomControl: true,
-                zoom: 8,
-                draggable : true,
+                streetViewControl: false,
+                scaleControl : false,
+                zoom: 7,
+                draggable : false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 

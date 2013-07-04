@@ -1,0 +1,47 @@
+<header id="header">
+	<img src="img/dane.header.01.png" class="danelogo1">
+	<h5 class="title">DIVIPOLA</h5>
+	<img src="img/dane.header.02.png" class="danelogo2">
+</header>
+<div id="wrapper">
+	<div id="scroller">
+		<input type="hidden" id="prev-page" name="prev-page" value="home">
+		<b class="contact-header">{{upperTip}}</b>
+		<span class="contact-info">
+			<span>{{tip01}}</span>
+			<br/>
+			<span>{{tip02}}</span>
+			<br/><br/>
+			<b>Contacto:</b><br/>
+			<span>{{contactName}}</span><br/>
+			<span>{{contactPhone}}</span><br/>
+			<span>{{contactEmail}}</span><br/>
+			<br/>
+			<b>{{nombre}}</b><br/>
+			<span>Direcci&oacute;n:&nbsp;{{direccion}}</span><br/>
+			<span>Tel&eacute;fonos:&nbsp;{{telefonos}}</span><br/>
+			<span>Horario de atenci&oacute;n:&nbsp;{{atencion}}</span><br/>
+			<span>Email:&nbsp;{{email}}</span><br/><br/>
+			<span class="contact-button-bar">
+				<a href="tel:+5715978300">
+					<img src="img/icon-contact-call.png" />
+				</a>
+				<a href="mailto:{{email}}">
+					<img src="img/icon-contact-email.png" />
+				</a>
+			</span>
+		</span>
+	</div>
+</div>
+<footer id="footer">
+	<div class="footer-container">
+		<div class="footer-btn back-home-icon">
+			<img src="img/icon-home.png">
+			Inicio
+		</div>
+		<div class="footer-btn back-prev-icon">
+			<img src="img/icon-back.png">
+			Anterior
+		</div>
+	</div>
+</footer>
