@@ -122,7 +122,9 @@
                         </li>
                         <li class="menu-li home-li-tip">{{upperTip}}</li>
                         {{#each menu}}
-                        <li class="menu-li home-menu-item" data-home-link="{{hash}}">{{label}}</li>
+                        <li class="menu-li home-menu-item">
+                            <a href="#" class="lv01-link" data-home-link="{{hash}}">{{label}}</a>
+                        </li>
                         {{/each}}
                     </ul>
                 </div>

@@ -82,6 +82,10 @@ li.menu-li {
     min-height: 30px;
     clear: both;
 }
+li.menu-li a.lv01-link{
+    color:#ffffff !important;
+    text-decoration:none;
+}
 li.inner-li {
     line-height:14px;
     margin-bottom: 10px;

@@ -80,7 +80,7 @@ dvp.prepareMainView = function () {
         menu: searchMenu
     }));
 
-    $('body').off(dvp.toggleClickEvent()).on(dvp.toggleClickEvent(), 'li.home-menu-item', function (e) {
+    $('body').off(dvp.toggleClickEvent()).on(dvp.toggleClickEvent(), 'a.lv01-link', function (e) {
         e.preventDefault();
         var hash = $(this).attr('data-home-link') || 'nah';
         dvp.changeView(hash);
