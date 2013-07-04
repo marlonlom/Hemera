@@ -487,6 +487,7 @@ dvp.prepareMap = function (mapContext) {
             return item['cod'] === mapContext['map_code'];
         })[0];
         if (mapConfig !== undefined) {
+
             var mapOptions = {
                 center: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']),
                 disableDoubleClickZoom: true,
@@ -505,10 +506,6 @@ dvp.prepareMap = function (mapContext) {
                 position: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude'])
             });
 
-            google.maps.event.addListener(map, 'bounds_changed', function () {
-                map.setZoom(7);
-            });
-            
             var bounds = new google.maps.LatLngBounds();
             bounds.extend(new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']));
             map.fitBounds(bounds);

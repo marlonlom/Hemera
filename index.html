@@ -79,13 +79,13 @@
             dvp.checkGoogleMapsAvailability = function() { 
                 var connectionState = navigator.network.connection.type; 
                 if (connectionState == Connection.NONE || connectionState == Connection.UNKNOWN) { 
-                    return "No network connection available"; 
+                    return "No hay conexión de red disponible"; 
                 } 
                 if (dvp.googleMapsState == "" || dvp.googleMapsState == "error") { 
-                    return "Maps are not currently available"; 
+                    return "Los mapas no están disponibles actualmente"; 
                 } 
                 if (dvp.googleMapsState == "loading") { 
-                    return "Maps are loading, try again aoon"; 
+                    return "El servicio de mapas está cargándose, inténtelo de nuevo pronto"; 
                 } 
                 return ""; 
             };
