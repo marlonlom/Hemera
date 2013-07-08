@@ -8,7 +8,7 @@ var dvp = {
         items: ''
     },
     googleMapsState: "",
-    dynamicXlsDownloadUrl: 'http://localhost:8080/divipola-mobile-xls/dxls/',
+    dynamicXlsDownloadUrl: 'http://190.25.231.249/divipola-mobile-xls/dxls/',
     iscroll: null
 };
 dvp.initialize = function () {
