@@ -1,40 +1,40 @@
 <header id="header">
-	<img src="img/dane.header.01.png" class="danelogo1">
-	<h5 class="title">DIVIPOLA</h5>
-	<img src="img/dane.header.02.png" class="danelogo2">
+    <img src="img/dane.header.01.png" class="danelogo1">
+    <h5 class="title">DIVIPOLA</h5>
+    <img src="img/dane.header.02.png" class="danelogo2">
 </header>
 <div id="wrapper">
-	<div id="scroller">
-		<input type="hidden" id="prev-page" name="prev-page" value="home">
-		<ul class='home-list'>
-			<li class="menu-li home-li-tip"><b>{{upperTip}}</b></li>
-			<li class="menu-li about-menu-item">
-				<a href="#" data-about-link="leafs">{{aboutHeader}}</a>
-			</li>
-			<li class="menu-li about-menu-item about-menu-item-leaf">
-				<a href="#" data-about-link="dvpWhois">{{dvpWhois}}</a>
-			</li>
-			<li class="menu-li about-menu-item about-menu-item-leaf">
-				<a href="#" data-about-link="dvpHistory">{{dvpHistory}}</a>
-			</li>
-			<li class="menu-li about-menu-item" >
-				<a href="#" data-about-link="dvpCronolg">{{dvpCronolg}}</a>
-			</li>
-			<li class="menu-li about-menu-item" >
-				<a href="#" data-about-link="dvpGlossary">{{dvpGlossary}}</a>
-			</li>
-		</ul>
-	</div>
+    <div id="scroller">
+        <input type="hidden" id="prev-page" name="prev-page" value="home">
+        <ul class='home-list'>
+            <li class="menu-li home-li-tip"><b>{{upperTip}}</b></li>
+            <li class="menu-li about-menu-item">
+                <a href="#" data-about-link="leafs">{{aboutHeader}}</a>
+            </li>
+            <li class="menu-li about-menu-item about-menu-item-leaf">
+                <a href="#" data-about-link="dvpWhois">{{dvpWhois}}</a>
+            </li>
+            <li class="menu-li about-menu-item about-menu-item-leaf">
+                <a href="#" data-about-link="dvpHistory">{{dvpHistory}}</a>
+            </li>
+            <li class="menu-li about-menu-item" >
+                <a href="#" data-about-link="dvpCronolg">{{dvpCronolg}}</a>
+            </li>
+            <li class="menu-li about-menu-item" >
+                <a href="#" data-about-link="dvpGlossary">{{dvpGlossary}}</a>
+            </li>
+        </ul>
+    </div>
 </div>
 <footer id="footer">
-	<div class="footer-container">
-		<div class="footer-btn back-home-icon">
-			<img src="img/icon-home.png">
-			Inicio
-		</div>
-		<div class="footer-btn back-prev-icon">
-			<img src="img/icon-back.png">
-			Anterior
-		</div>
-	</div>
+    <div class="footer-container">
+        <div class="footer-btn back-home-icon">
+            <img src="img/icon-home.png">
+            Inicio
+        </div>
+        <div class="footer-btn back-prev-icon">
+            <img src="img/icon-back.png">
+            Anterior
+        </div>
+    </div>
 </footer>

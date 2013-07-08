@@ -1,43 +1,43 @@
 <header id="header">
-	<img src="img/dane.header.01.png" class="danelogo1">
-	<h5 class="title">DIVIPOLA</h5>
-	<img src="img/dane.header.02.png" class="danelogo2">
+    <img src="img/dane.header.01.png" class="danelogo1">
+    <h5 class="title">DIVIPOLA</h5>
+    <img src="img/dane.header.02.png" class="danelogo2">
 </header>
 <div id="wrapper">
-	<div id="scroller">
-		<input type="hidden" id="prev-page" name="prev-page" value="home">
-		<ul class='deptos-list'>
-			<li class="menu-li home-li-tip inner-li">
-				<b>{{upperTip}}</b>
-				<br/>
-				{{#if tip_bog}}
-				<span class="tip_bog">{{tip_bog}}</span>
-				{{/if}}
-				<span class="data-treeline">{{treeline}}</span>
-			</li>
-			{{#each list}}
-			<li class="menu-li item-li">
-				<a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
-				<img src="img/map.png" data-itm-cod="{{cod}}" class="vmap-icon" />
-				<a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
-			</li>
-			{{/each}}
-		</ul>
-	</div>
+    <div id="scroller">
+        <input type="hidden" id="prev-page" name="prev-page" value="home">
+        <ul class='deptos-list'>
+            <li class="menu-li home-li-tip inner-li">
+                <b>{{upperTip}}</b>
+                <br/>
+                {{#if tip_bog}}
+                <span class="tip_bog">{{tip_bog}}</span>
+                {{/if}}
+                <span class="data-treeline">{{treeline}}</span>
+            </li>
+            {{#each list}}
+            <li class="menu-li item-li">
+                <a href="#" class="itm-nom" data-itm-cod="{{cod}}">{{nom}}</a>
+                <img src="img/map.png" data-itm-cod="{{cod}}" class="vmap-icon" />
+                <a href="#" class="itm-cod" data-itm-cod="{{cod}}">({{cod}})</a> 
+            </li>
+            {{/each}}
+        </ul>
+    </div>
 </div>
 <footer id="footer">
-	<div class="footer-container">
-		<div class="footer-btn back-home-icon">
-			<img src="img/icon-home.png">
-			Inicio
-		</div>
-		<div class="footer-btn back-prev-icon">
-			<img src="img/icon-back.png">
-			Anterior
-		</div>
-		 <div class="footer-btn save-xls-icon">
-			<img src="img/icon-xls.png">
-			C&oacute;digos
-		</div>
-	</div>
+    <div class="footer-container">
+        <div class="footer-btn back-home-icon">
+            <img src="img/icon-home.png">
+            Inicio
+        </div>
+        <div class="footer-btn back-prev-icon">
+            <img src="img/icon-back.png">
+            Anterior
+        </div>
+         <div class="footer-btn save-xls-icon">
+            <img src="img/icon-xls.png">
+            C&oacute;digos
+        </div>
+    </div>
 </footer>

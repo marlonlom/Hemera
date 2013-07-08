@@ -12,17 +12,17 @@ var dvp = {
     iscroll: null
 };
 dvp.initialize = function () {
-    this.templates.home = Handlebars.compile($("#hbt-home").html());
-    this.templates.level01 = Handlebars.compile($("#hbt-level01").html());
-    this.templates.level02 = Handlebars.compile($("#hbt-level02").html());
-    this.templates.level03 = Handlebars.compile($("#hbt-level03").html());
-    this.templates.contact = Handlebars.compile($("#hbt-contact").html());
-    this.templates.aboutlist = Handlebars.compile($("#hbt-about-list").html());
-    this.templates.whois = Handlebars.compile($("#hbt-about-whois").html());
-    this.templates.texts = Handlebars.compile($("#hbt-about-texts").html());
-    this.templates.evolution = Handlebars.compile($("#hbt-about-evolution").html());
-    this.templates.mapping = Handlebars.compile($("#hbt-mapping").html());
-    this.templates.searchs = Handlebars.compile($("#hbt-search-results").html());
+    this.templates.home = Handlebars.templates["hbt-home"];
+    this.templates.level01 = Handlebars.templates["hbt-level01"];
+    this.templates.level02 = Handlebars.templates["hbt-level02"];
+    this.templates.level03 = Handlebars.templates["hbt-level03"];
+    this.templates.contact = Handlebars.templates["hbt-contact"];
+    this.templates.aboutlist = Handlebars.templates["hbt-about-list"];
+    this.templates.whois = Handlebars.templates["hbt-about-whois"];
+    this.templates.texts = Handlebars.templates["hbt-about-texts"];
+    this.templates.evolution = Handlebars.templates["hbt-about-evolution"];
+    this.templates.mapping = Handlebars.templates["hbt-mapping"];
+    this.templates.searchs = Handlebars.templates["hbt-search-results"];
 };
 dvp.isOffline = function () {
     var connectionType = navigator.connection ? navigator.connection.type : null;
@@ -493,7 +493,7 @@ dvp.prepareMap = function (mapContext) {
                 disableDoubleClickZoom: true,
                 streetViewControl: false,
                 scaleControl : false,
-                zoom: 7,
+                zoom: 8,
                 draggable : false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
@@ -509,6 +509,12 @@ dvp.prepareMap = function (mapContext) {
             var bounds = new google.maps.LatLngBounds();
             bounds.extend(new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']));
             map.fitBounds(bounds);
+            var zoomChangeBoundsListener = google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
+                if (this.getZoom()){
+                    this.setZoom(8);
+                }
+            });
+            setTimeout(function(){google.maps.event.removeListener(zoomChangeBoundsListener)}, 2000);
             
             var mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
                 mapId: '03774390725342724344-05899590172284233324-4',
