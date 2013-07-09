@@ -494,7 +494,7 @@ dvp.prepareMap = function (mapContext) {
                 streetViewControl: false,
                 scaleControl : false,
                 zoom: 8,
-                draggable : false,
+                draggable : true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             };
 
