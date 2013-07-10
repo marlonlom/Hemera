@@ -490,9 +490,7 @@ dvp.prepareMap = function (mapContext) {
 
             var mapOptions = {
                 center: new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']),
-                disableDoubleClickZoom: true,
                 streetViewControl: false,
-                scaleControl : false,
                 zoom: 8,
                 draggable : true,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
@@ -507,21 +505,17 @@ dvp.prepareMap = function (mapContext) {
             });
 
             var bounds = new google.maps.LatLngBounds();
-            bounds.extend(new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']));
+            /*bounds.extend(new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']));*/
+            bounds.extend(new google.maps.LatLng(mapConfig['swLatitude'], mapConfig['swLongitude']));
+            bounds.extend(new google.maps.LatLng(mapConfig['neLatitude'], mapConfig['neLongitude']));
             map.fitBounds(bounds);
-            var zoomChangeBoundsListener = google.maps.event.addListenerOnce(map, 'bounds_changed', function(event) {
-                if (this.getZoom()){
-                    this.setZoom(8);
-                }
-            });
-            setTimeout(function(){google.maps.event.removeListener(zoomChangeBoundsListener)}, 2000);
             
             var mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
                 mapId: '03774390725342724344-05899590172284233324-4',
                 layerKey: 'layer_00001',
-                map: map,
-                clickable: false,
-                suppressInfoWindows: true
+                map: map
+                /*clickable: false,
+                suppressInfoWindows: true*/
             });
             
         } else {
