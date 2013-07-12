@@ -505,10 +505,10 @@ dvp.prepareMap = function (mapContext) {
             });
 
             var bounds = new google.maps.LatLngBounds();
-            /*bounds.extend(new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']));*/
             bounds.extend(new google.maps.LatLng(mapConfig['swLatitude'], mapConfig['swLongitude']));
             bounds.extend(new google.maps.LatLng(mapConfig['neLatitude'], mapConfig['neLongitude']));
             map.fitBounds(bounds);
+            map.setCenter(new google.maps.LatLng(mapConfig['centerLatitude'], mapConfig['centerLongitude']));
             
             var mapsEngineLayer = new google.maps.visualization.MapsEngineLayer({
                 mapId: '03774390725342724344-05899590172284233324-4',
